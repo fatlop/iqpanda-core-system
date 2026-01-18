@@ -7,6 +7,7 @@ import { logger } from './config/logger';
 import salesRoutes from './routes/sales.routes';
 import inventoryRoutes from './routes/inventory.routes';
 import dashboardRoutes from './routes/dashboard.routes';
+import aiRoutes from './routes/ai.routes';
 
 dotenv.config();
 
@@ -41,9 +42,15 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.json({
     nombre: 'IQpanda Core System',
-    descripcion: 'Sistema administrativo amigable para tu negocio',
-    version: '1.0.0',
-    estado: 'activo'
+    descripcion: '🐼 Sistema administrativo con IA para tu negocio',
+    version: '2.0.0',
+    estado: 'activo',
+    nuevasCaracteristicas: [
+      '🧠 Panda AI - Asesor Virtual Inteligente',
+      '💰 Smart Pricing - Precios Inteligentes',
+      '🔮 Predictor Financiero',
+      '📊 Dashboard con Insights en Tiempo Real'
+    ]
   });
 });
 
@@ -57,6 +64,7 @@ app.get('/health', (req, res) => {
 app.use('/api/ventas', salesRoutes);
 app.use('/api/inventario', inventoryRoutes);
 app.use('/api/tablero', dashboardRoutes);
+app.use('/api/ia', aiRoutes);
 
 // Error handling
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
