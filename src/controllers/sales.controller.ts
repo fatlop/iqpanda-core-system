@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Sale from '../models/Sale.model';
 import Product from '../models/Product.model';
 import { logger } from '../config/logger';
+import { generarNumeroVenta } from '../utils/helpers';
 
 export const getAllSales = async (req: Request, res: Response) => {
   try {
@@ -124,8 +125,8 @@ export const createSale = async (req: Request, res: Response) => {
     const total = subtotal - descuento + impuestos;
     
     // Generar número de venta
+    const numeroVenta = generarNumeroVenta();
     const fechaActual = new Date();
-    const numeroVenta = `V-${fechaActual.getFullYear()}${String(fechaActual.getMonth() + 1).padStart(2, '0')}${String(fechaActual.getDate()).padStart(2, '0')}-${Date.now().toString().slice(-6)}`;
     
     const venta = new Sale({
       numeroVenta,

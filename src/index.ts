@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
 import { connectDatabase } from './config/database';
 import { logger } from './config/logger';
 import salesRoutes from './routes/sales.routes';
@@ -12,10 +13,23 @@ dotenv.config();
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
+// Rate limiting para prevenir abuso de la API
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // límite de 100 peticiones por ventana
+  message: {
+    exito: false,
+    mensaje: 'Demasiadas peticiones desde esta IP, por favor intenta más tarde'
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
 // Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(limiter);
 
 // Logging middleware
 app.use((req, res, next) => {

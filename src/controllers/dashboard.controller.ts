@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Sale from '../models/Sale.model';
 import Product from '../models/Product.model';
 import { logger } from '../config/logger';
+import { redondearADosDecimales } from '../utils/helpers';
 
 export const getDashboard = async (req: Request, res: Response) => {
   try {
@@ -99,14 +100,14 @@ export const getDashboard = async (req: Request, res: Response) => {
       resumen: {
         ventas: {
           total: totalVentas,
-          ingresoTotal: Math.round(ingresoTotal * 100) / 100,
-          promedio: Math.round(promedioVenta * 100) / 100
+          ingresoTotal: redondearADosDecimales(ingresoTotal),
+          promedio: redondearADosDecimales(promedioVenta)
         },
         inventario: {
           totalProductos,
           productosStockBajo,
           valorTotal: valorInventario.length > 0 
-            ? Math.round(valorInventario[0].total * 100) / 100 
+            ? redondearADosDecimales(valorInventario[0].total)
             : 0
         }
       },
@@ -157,11 +158,11 @@ export const getReporteVentas = async (req: Request, res: Response) => {
       },
       resumen: {
         totalVentas,
-        ingresoTotal: Math.round(ingresoTotal * 100) / 100,
-        descuentosTotal: Math.round(descuentosTotal * 100) / 100,
-        impuestosTotal: Math.round(impuestosTotal * 100) / 100,
+        ingresoTotal: redondearADosDecimales(ingresoTotal),
+        descuentosTotal: redondearADosDecimales(descuentosTotal),
+        impuestosTotal: redondearADosDecimales(impuestosTotal),
         promedioVenta: totalVentas > 0 
-          ? Math.round((ingresoTotal / totalVentas) * 100) / 100 
+          ? redondearADosDecimales(ingresoTotal / totalVentas)
           : 0
       },
       ventas
