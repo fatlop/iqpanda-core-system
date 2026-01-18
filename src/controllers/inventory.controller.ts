@@ -6,7 +6,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const { categoria, buscar, activo } = req.query;
     
-    let filtro: any = {};
+    const filtro: any = {};
     
     if (categoria) {
       filtro.categoria = categoria;

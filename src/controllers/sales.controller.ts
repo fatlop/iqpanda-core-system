@@ -7,7 +7,7 @@ export const getAllSales = async (req: Request, res: Response) => {
   try {
     const { fechaInicio, fechaFin, estado, cliente } = req.query;
     
-    let filtro: any = {};
+    const filtro: any = {};
     
     if (fechaInicio || fechaFin) {
       filtro.fecha = {};
