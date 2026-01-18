@@ -1,156 +1,123 @@
-🧠 ¿Qué es IQpanda Core?
+🐼 IQpanda Core System
 
-IQpanda Core es el corazón digital de las soluciones de IQpanda Tecnovador.
-No es solo un sistema administrativo: es una herramienta que acompaña al usuario, explica la información y facilita la toma de decisiones sin lenguaje técnico.
+Sistema administrativo desarrollado por IQpanda Tecnovador, pensado para negocios reales y personas reales.
+Diseñado para organizar ventas, inventario y el estado general del negocio de forma clara, amigable y en español de México.
 
-Está pensado para:
+🎯 ¿Qué es este proyecto?
 
-negocios reales
+IQpanda Core System es el corazón digital de las soluciones de IQpanda Tecnovador.
+No es un software genérico, sino una base sólida y adaptable para crear sistemas administrativos personalizados para pequeñas y medianas empresas.
 
-personas no técnicas
-
-uso diario sin complicaciones
-
-🎯 Objetivo del proyecto
-
-Crear un sistema que:
-
-organice ventas e inventario
-
-muestre el estado del negocio de forma clara
-
-se adapte a distintos tipos de negocios
-
-pueda crecer sin perder su esencia humana
-
-🐼 Filosofía IQpanda
-
-Tecnología clara
-
-Lenguaje humano
-
-Diseño amigable
-
-Soluciones reales, no complicaciones
-
-El sistema debe explicar, no confundir.
-
-🧩 Módulos principales
-
-Inicio (resumen del día)
-
-Ventas / Caja
-
-Inventario
-
-Negocio (gráficas y estado general)
-
-Clientes (opcional)
-
-Configuración
-
-Cada módulo debe:
-
-ser visualmente claro
-
-tener mensajes de acompañamiento
-
-evitar palabras técnicas
-
-🎨 Identidad visual
-
-Colores base del sistema:
-
-Verde Panda: #1DB954
-
-Negro suave: #121212
-
-Blanco hueso: #F5F5F5
-
-Gris neutro: #2A2A2A
-
-Amarillo suave: #FFD166
-
-Estilo:
-
-bordes redondeados
-
-sombras ligeras
-
-diseño limpio y moderno
-
-🗣️ Lenguaje del sistema
-
-El sistema debe comunicarse como IQpanda:
-
-cercano
-
-claro
-
-positivo
-
-orientado a ayudar
-
-Ejemplos:
-
-“Aquí puedes ver cómo va tu día”
-
-“Este dato te puede ayudar”
-
-“No te preocupes, vamos paso a paso”
-
-🤖 Capa inteligente (actual o futura)
-
-El sistema puede mostrar mensajes automáticos de ayuda y análisis simple, como:
-
-comparaciones
-
-alertas
-
-sugerencias
-
-Sin saturar al usuario ni usar términos técnicos.
-
-🧱 Escalabilidad
-
-Este proyecto está diseñado para:
-
-adaptarse a diferentes negocios
-
-personalizarse por cliente
-
-agregar módulos
-
-integrar inteligencia artificial en el futuro
-
-📌 Uso del repositorio
-
-Este repositorio se usa para:
-
-pulir el sistema
-
-mejorar diseño y experiencia
-
-adaptar módulos
-
-mantener coherencia con la marca IQpanda Tecnovador
-
-No es un producto cerrado, es un ecosistema en evolución.
-
-🏷️ Marca
-
-Desarrollado por
-IQpanda Tecnovador
-“Creamos soluciones, no complicaciones”
-
-🧭 Notas finales
-
-Todo cambio debe respetar:
+Su enfoque principal es:
 
 claridad
 
-cercanía
+facilidad de uso
+
+lenguaje humano
 
 utilidad real
 
-Si algo se ve bonito pero confunde, no va.
+✨ ¿Qué problemas resuelve?
+
+Falta de control en ventas
+
+Desorden en inventario
+
+Dificultad para entender números
+
+Sistemas complicados o en inglés
+
+Falta de herramientas accesibles para PyMEs
+
+🧩 Funcionalidades principales
+
+Gestión de inventario
+
+Registro de ventas
+
+Actualización automática de stock
+
+Dashboard con estadísticas claras
+
+Alertas de stock bajo
+
+Reportes simples
+
+Mensajes de ayuda y orientación
+
+Todo el sistema está en español de México y pensado para usuarios sin conocimientos técnicos.
+
+🎨 Identidad IQpanda Tecnovador
+
+Este proyecto sigue la filosofía de IQpanda Tecnovador:
+
+Tecnología clara
+
+Diseño amigable
+
+Lenguaje sencillo
+
+Soluciones reales, no complicaciones
+
+Si algo se ve bonito pero no se entiende, no cumple su función.
+
+🛠️ Tecnologías utilizadas
+
+Node.js
+
+TypeScript
+
+Express
+
+MongoDB
+
+Jest
+
+ESLint + Prettier
+
+(La tecnología está al servicio del usuario, no al revés.)
+
+🚀 Instalación básica
+git clone https://github.com/tu-usuario/iqpanda-core-system.git
+cd iqpanda-core-system
+npm install
+cp .env.example .env
+npm run dev
+
+📦 Estructura del proyecto
+src/
+├─ controllers/
+├─ models/
+├─ routes/
+├─ services/
+├─ utils/
+└─ index.ts
+
+📄 Documentación
+
+README.md – guía general
+
+API_DOCUMENTATION.md – endpoints
+
+EJEMPLOS.md – casos de uso
+
+CONTRIBUTING.md – cómo colaborar
+
+🧪 Pruebas
+npm run test
+
+🧭 Estado del proyecto
+
+Proyecto activo y en evolución.
+Diseñado para crecer, adaptarse e integrarse con frontend e inteligencia artificial.
+
+🏷️ Autor
+
+IQpanda Tecnovador
+“Creamos soluciones, no complicaciones”
+
+🐼 Nota final
+
+Este repositorio representa la forma de trabajar de IQpanda Tecnovador:
+orden, claridad y enfoque humano.
