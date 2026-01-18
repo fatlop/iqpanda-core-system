@@ -1,6 +1,7 @@
 import Sale from '../models/Sale.model';
 import Product from '../models/Product.model';
 import { logger } from '../config/logger';
+import { AI_CONFIG, DIAS_SEMANA } from '../config/ai.config';
 
 /**
  * Servicio de IA Panda - Asesor Virtual Inteligente
@@ -23,7 +24,7 @@ export interface PandaInsight {
 export const analizarPatronesPorDia = async (): Promise<PandaInsight[]> => {
   try {
     const hace30Dias = new Date();
-    hace30Dias.setDate(hace30Dias.getDate() - 30);
+    hace30Dias.setDate(hace30Dias.getDate() - AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM);
 
     const ventas = await Sale.find({
       fecha: { $gte: hace30Dias },
@@ -32,7 +33,6 @@ export const analizarPatronesPorDia = async (): Promise<PandaInsight[]> => {
 
     // Analizar ventas por día de la semana
     const ventasPorDia: { [key: number]: { total: number; monto: number } } = {};
-    const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
     ventas.forEach((venta: any) => {
       const dia = new Date(venta.fecha).getDay();
@@ -67,13 +67,13 @@ export const analizarPatronesPorDia = async (): Promise<PandaInsight[]> => {
       }
     });
 
-    if (maxVentas > minVentas * 1.3) {
+    if (maxVentas > minVentas * (1 + AI_CONFIG.PATTERN_ANALYSIS.MIN_VARIANCE_PERCENT / 100)) {
       const diferencia = Math.round(((maxVentas - minVentas) / minVentas) * 100);
       insights.push({
         tipo: 'sugerencia',
         prioridad: 'media',
         titulo: 'Patrón de ventas por día detectado',
-        mensaje: `Noté que los ${diasSemana[mejorDia]} vendes ${diferencia}% más que los ${diasSemana[peorDia]}. ¿Qué tal si preparas más stock los días anteriores a ${diasSemana[mejorDia]}?`,
+        mensaje: `Noté que los ${DIAS_SEMANA[mejorDia]} vendes ${diferencia}% más que los ${DIAS_SEMANA[peorDia]}. ¿Qué tal si preparas más stock los días anteriores a ${DIAS_SEMANA[mejorDia]}?`,
         accion: 'Optimizar preparación de inventario según día de la semana',
         impactoEstimado: `Podrías reducir ventas perdidas y aumentar ingresos hasta $${Math.round(ventasPorDia[mejorDia].monto * 0.15).toLocaleString('es-MX')} al mes`
       });
@@ -92,7 +92,7 @@ export const analizarPatronesPorDia = async (): Promise<PandaInsight[]> => {
 export const detectarRiesgoStockOut = async (): Promise<PandaInsight[]> => {
   try {
     const hace7Dias = new Date();
-    hace7Dias.setDate(hace7Dias.getDate() - 7);
+    hace7Dias.setDate(hace7Dias.getDate() - AI_CONFIG.HISTORICAL_DAYS.SHORT_TERM);
 
     const ventas = await Sale.find({
       fecha: { $gte: hace7Dias },
@@ -122,10 +122,10 @@ export const detectarRiesgoStockOut = async (): Promise<PandaInsight[]> => {
       const producto = await Product.findById(productoId);
       if (!producto || !producto.activo) continue;
 
-      const ventaDiaria = datos.cantidad / 7;
+      const ventaDiaria = datos.cantidad / AI_CONFIG.HISTORICAL_DAYS.SHORT_TERM;
       const diasRestantes = producto.cantidadDisponible / ventaDiaria;
 
-      if (diasRestantes < 3 && diasRestantes > 0) {
+      if (diasRestantes < AI_CONFIG.CRITICAL_THRESHOLDS.STOCK_OUT_DAYS && diasRestantes > 0) {
         insights.push({
           tipo: 'alerta',
           prioridad: 'alta',
@@ -150,7 +150,7 @@ export const detectarRiesgoStockOut = async (): Promise<PandaInsight[]> => {
 export const identificarProductosEstrella = async (): Promise<PandaInsight[]> => {
   try {
     const hace30Dias = new Date();
-    hace30Dias.setDate(hace30Dias.getDate() - 30);
+    hace30Dias.setDate(hace30Dias.getDate() - AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM);
 
     const topProductos = await Sale.aggregate([
       {
@@ -202,7 +202,7 @@ export const predecirVentasHoy = async (): Promise<PandaInsight> => {
     const hoy = new Date();
     const diaSemana = hoy.getDay();
     const hace30Dias = new Date();
-    hace30Dias.setDate(hace30Dias.getDate() - 30);
+    hace30Dias.setDate(hace30Dias.getDate() - AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM);
 
     // Buscar ventas históricas del mismo día de la semana
     const ventasHistoricas = await Sale.find({

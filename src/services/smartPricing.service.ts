@@ -2,6 +2,7 @@ import Product from '../models/Product.model';
 import Sale from '../models/Sale.model';
 import { logger } from '../config/logger';
 import { redondearADosDecimales } from '../utils/helpers';
+import { AI_CONFIG } from '../config/ai.config';
 
 /**
  * Servicio de Smart Pricing - Precios Inteligentes con IA
@@ -29,10 +30,10 @@ export interface SugerenciaPrecio {
  */
 const analizarDemandaProducto = async (productoId: string): Promise<{ nivel: 'alta' | 'media' | 'baja'; tendencia: 'creciente' | 'estable' | 'decreciente' }> => {
   const hace30Dias = new Date();
-  hace30Dias.setDate(hace30Dias.getDate() - 30);
+  hace30Dias.setDate(hace30Dias.getDate() - AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM);
 
   const hace60Dias = new Date();
-  hace60Dias.setDate(hace60Dias.getDate() - 60);
+  hace60Dias.setDate(hace60Dias.getDate() - (AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM * 2));
 
   // Ventas de los últimos 30 días
   const ventasRecientes = await Sale.aggregate([
@@ -83,15 +84,15 @@ const analizarDemandaProducto = async (productoId: string): Promise<{ nivel: 'al
 
   // Determinar nivel de demanda
   let nivel: 'alta' | 'media' | 'baja' = 'baja';
-  if (cantidadReciente > 50) nivel = 'alta';
-  else if (cantidadReciente > 20) nivel = 'media';
+  if (cantidadReciente > AI_CONFIG.DEMAND_THRESHOLDS.HIGH) nivel = 'alta';
+  else if (cantidadReciente > AI_CONFIG.DEMAND_THRESHOLDS.MEDIUM) nivel = 'media';
 
   // Determinar tendencia
   let tendencia: 'creciente' | 'estable' | 'decreciente' = 'estable';
   if (cantidadAnterior > 0) {
     const cambio = ((cantidadReciente - cantidadAnterior) / cantidadAnterior) * 100;
-    if (cambio > 15) tendencia = 'creciente';
-    else if (cambio < -15) tendencia = 'decreciente';
+    if (cambio > AI_CONFIG.TREND_THRESHOLDS.GROWING) tendencia = 'creciente';
+    else if (cambio < AI_CONFIG.TREND_THRESHOLDS.DECLINING) tendencia = 'decreciente';
   }
 
   return { nivel, tendencia };
@@ -116,32 +117,32 @@ export const generarSugerenciasPrecio = async (): Promise<SugerenciaPrecio[]> =>
       // Lógica de sugerencia de precio basada en demanda y tendencia
       if (demanda === 'alta' && tendencia === 'creciente') {
         // Alta demanda creciente: puedes cobrar más
-        precioSugerido = redondearADosDecimales(producto.precio * 1.15);
+        precioSugerido = redondearADosDecimales(producto.precio * AI_CONFIG.PRICE_ADJUSTMENTS.HIGH_DEMAND_GROWING);
         razon = 'Alta demanda y creciente. Los clientes están dispuestos a pagar más por este producto popular.';
         impactoEstimado = '+15% en margen de ganancia sin afectar ventas';
         confianza = 'alta';
       } else if (demanda === 'baja' && tendencia === 'decreciente') {
         // Baja demanda decreciente: reduce precio para estimular ventas
-        precioSugerido = redondearADosDecimales(producto.precio * 0.85);
+        precioSugerido = redondearADosDecimales(producto.precio * AI_CONFIG.PRICE_ADJUSTMENTS.LOW_DEMAND_DECLINING);
         razon = 'Demanda baja y decreciente. Un precio más atractivo podría reactivar las ventas.';
         impactoEstimado = 'Potencial aumento de 30-40% en volumen de ventas';
         confianza = 'media';
       } else if (demanda === 'alta' && tendencia === 'decreciente') {
         // Alta demanda pero decreciente: mantén competitivo
-        precioSugerido = redondearADosDecimales(producto.precio * 0.95);
+        precioSugerido = redondearADosDecimales(producto.precio * AI_CONFIG.PRICE_ADJUSTMENTS.HIGH_DEMAND_DECLINING);
         razon = 'Demanda alta pero bajando. Un ajuste moderado puede mantener el volumen.';
         impactoEstimado = 'Mantener nivel actual de ventas y competitividad';
         confianza = 'media';
       } else if (demanda === 'media' && tendencia === 'creciente') {
         // Demanda media creciente: incremento moderado
-        precioSugerido = redondearADosDecimales(producto.precio * 1.08);
+        precioSugerido = redondearADosDecimales(producto.precio * AI_CONFIG.PRICE_ADJUSTMENTS.MEDIUM_DEMAND_GROWING);
         razon = 'Demanda creciendo consistentemente. Momento ideal para optimizar márgenes.';
         impactoEstimado = '+8% en ingresos con mínimo impacto en ventas';
         confianza = 'alta';
       }
 
       // Solo agregar si hay cambio significativo en el precio
-      if (Math.abs(precioSugerido - producto.precio) >= 0.50) {
+      if (Math.abs(precioSugerido - producto.precio) >= AI_CONFIG.PRICE_ADJUSTMENTS.MIN_CHANGE_THRESHOLD) {
         sugerencias.push({
           productoId: producto._id.toString(),
           nombreProducto: producto.nombre,

@@ -3,6 +3,7 @@ import { obtenerInsightsPanda } from '../services/pandaAI.service';
 import { generarSugerenciasPrecio, sugerirPrecioProducto } from '../services/smartPricing.service';
 import { generarProyeccion } from '../services/predictor.service';
 import { logger } from '../config/logger';
+import { AI_CONFIG } from '../config/ai.config';
 
 /**
  * Obtiene insights inteligentes de Panda AI
@@ -82,12 +83,12 @@ export const getSugerenciaPrecioProducto = async (req: Request, res: Response) =
  */
 export const getProyeccionFinanciera = async (req: Request, res: Response) => {
   try {
-    const dias = parseInt(req.query.dias as string) || 30;
+    const dias = parseInt(req.query.dias as string) || AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM;
 
-    if (dias < 1 || dias > 365) {
+    if (dias < AI_CONFIG.PROJECTION_LIMITS.MIN_DAYS || dias > AI_CONFIG.PROJECTION_LIMITS.MAX_DAYS) {
       return res.status(400).json({
         exito: false,
-        mensaje: 'El período debe estar entre 1 y 365 días'
+        mensaje: `El período debe estar entre ${AI_CONFIG.PROJECTION_LIMITS.MIN_DAYS} y ${AI_CONFIG.PROJECTION_LIMITS.MAX_DAYS} días`
       });
     }
 

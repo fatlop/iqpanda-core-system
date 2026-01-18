@@ -2,6 +2,7 @@ import Sale from '../models/Sale.model';
 import Product from '../models/Product.model';
 import { logger } from '../config/logger';
 import { redondearADosDecimales } from '../utils/helpers';
+import { AI_CONFIG } from '../config/ai.config';
 
 /**
  * Servicio de Predicción Financiera
@@ -45,7 +46,7 @@ export const generarProyeccion = async (dias: number = 30): Promise<ProyeccionFi
 
     // Obtener datos históricos
     const hace90Dias = new Date();
-    hace90Dias.setDate(hace90Dias.getDate() - 90);
+    hace90Dias.setDate(hace90Dias.getDate() - AI_CONFIG.HISTORICAL_DAYS.LONG_TERM);
 
     const ventasHistoricas = await Sale.find({
       fecha: { $gte: hace90Dias },
@@ -77,20 +78,20 @@ export const generarProyeccion = async (dias: number = 30): Promise<ProyeccionFi
     }
 
     // Calcular promedios
-    const ventasDiarias = ventasHistoricas.reduce((sum: number, v: any) => sum + v.total, 0) / 90;
-    const transaccionesDiarias = ventasHistoricas.length / 90;
+    const ventasDiarias = ventasHistoricas.reduce((sum: number, v: any) => sum + v.total, 0) / AI_CONFIG.HISTORICAL_DAYS.LONG_TERM;
+    const transaccionesDiarias = ventasHistoricas.length / AI_CONFIG.HISTORICAL_DAYS.LONG_TERM;
 
     // Calcular tendencia (últimos 30 días vs 30-60 días atrás)
     const hace30Dias = new Date();
-    hace30Dias.setDate(hace30Dias.getDate() - 30);
+    hace30Dias.setDate(hace30Dias.getDate() - AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM);
     const hace60Dias = new Date();
-    hace60Dias.setDate(hace60Dias.getDate() - 60);
+    hace60Dias.setDate(hace60Dias.getDate() - (AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM * 2));
 
     const ventasUltimos30 = ventasHistoricas.filter((v: any) => v.fecha >= hace30Dias);
     const ventas30a60 = ventasHistoricas.filter((v: any) => v.fecha >= hace60Dias && v.fecha < hace30Dias);
 
-    const promedioUltimos30 = ventasUltimos30.reduce((sum: number, v: any) => sum + v.total, 0) / 30;
-    const promedio30a60 = ventas30a60.reduce((sum: number, v: any) => sum + v.total, 0) / 30;
+    const promedioUltimos30 = ventasUltimos30.reduce((sum: number, v: any) => sum + v.total, 0) / AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM;
+    const promedio30a60 = ventas30a60.reduce((sum: number, v: any) => sum + v.total, 0) / AI_CONFIG.HISTORICAL_DAYS.MEDIUM_TERM;
 
     const tendencia = promedio30a60 > 0 
       ? ((promedioUltimos30 - promedio30a60) / promedio30a60) * 100 
@@ -127,7 +128,7 @@ export const generarProyeccion = async (dias: number = 30): Promise<ProyeccionFi
         descripcion: `Reabastecer ${productosConStockBajo} producto(s) con stock bajo`,
         impacto: '+5% en ventas al evitar stock-outs'
       });
-      factorOptimizacion += 0.05;
+      factorOptimizacion += AI_CONFIG.OPTIMIZATION_FACTORS.STOCK_MANAGEMENT;
     }
 
     // Sugerencia 2: Promociones en días flojos
@@ -136,7 +137,7 @@ export const generarProyeccion = async (dias: number = 30): Promise<ProyeccionFi
       descripcion: 'Implementar promociones estratégicas en días de baja demanda',
       impacto: '+8% en ventas en días valle'
     });
-    factorOptimizacion += 0.08;
+    factorOptimizacion += AI_CONFIG.OPTIMIZATION_FACTORS.PROMOTIONS;
 
     // Sugerencia 3: Optimizar precios
     cambiosSugeridos.push({
@@ -144,7 +145,7 @@ export const generarProyeccion = async (dias: number = 30): Promise<ProyeccionFi
       descripcion: 'Aplicar sugerencias de Smart Pricing para productos clave',
       impacto: '+12% en margen sin afectar volumen'
     });
-    factorOptimizacion += 0.12;
+    factorOptimizacion += AI_CONFIG.OPTIMIZATION_FACTORS.SMART_PRICING;
 
     // Sugerencia 4: Fidelización
     if (transaccionesEstimadas > 50) {
@@ -153,7 +154,7 @@ export const generarProyeccion = async (dias: number = 30): Promise<ProyeccionFi
         descripcion: 'Programa de lealtad para clientes frecuentes',
         impacto: '+10% en frecuencia de compra'
       });
-      factorOptimizacion += 0.10;
+      factorOptimizacion += AI_CONFIG.OPTIMIZATION_FACTORS.LOYALTY_PROGRAM;
     }
 
     const ventasEstimadasOptimizado = redondearADosDecimales(ventasDiarias * dias * factorOptimizacion);
@@ -162,8 +163,8 @@ export const generarProyeccion = async (dias: number = 30): Promise<ProyeccionFi
 
     // Determinar confianza
     let confianza: 'alta' | 'media' | 'baja' = 'media';
-    if (ventasHistoricas.length >= 90) confianza = 'alta';
-    else if (ventasHistoricas.length < 30) confianza = 'baja';
+    if (ventasHistoricas.length >= AI_CONFIG.CRITICAL_THRESHOLDS.HIGH_CONFIDENCE_DAYS) confianza = 'alta';
+    else if (ventasHistoricas.length < AI_CONFIG.CRITICAL_THRESHOLDS.MIN_DATA_POINTS) confianza = 'baja';
 
     return {
       periodo: {
