@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+}
+
+:root {
+  /* IQPANDA TECNOVADOR BLUEPRINT COLORS */
+  --verde-panda: 141 68% 42%; /* #1DB954 translated to HSL */
+  --negro-suave: 0 0% 7%;     /* #121212 */
+  --blanco-hueso: 0 0% 96%;   /* #F5F5F5 */
+  --gris-neutro: 0 0% 16%;    /* #2A2A2A */
+  --amarillo-suave: 42 100% 70%; /* #FFD166 */
+
+  --background: 0 0% 96%;     /* Blanco Hueso */
+  --foreground: 0 0% 7%;      /* Negro Suave */
+  --border: 0 0% 85%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 7%;
+  
+  --primary: 141 68% 42%;     /* Verde Panda */
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 0 0% 90%;
+  --secondary-foreground: 0 0% 7%;
+  
+  --muted: 0 0% 90%;
+  --muted-foreground: 0 0% 40%;
+  
+  --accent: 42 100% 70%;      /* Amarillo Suave */
+  --accent-foreground: 0 0% 7%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --input: 0 0% 85%;
+  --ring: 141 68% 42%;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: 0 0% 7%;
+  --foreground: 0 0% 96%;
+  --border: 0 0% 16%;
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 96%;
+  --primary: 141 68% 42%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 16%;
+  --secondary-foreground: 0 0% 96%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(245, 245, 245, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .dark .glass {
+    background: rgba(18, 18, 18, 0.8);
+  }
+  .bg-verde-panda { background-color: #1DB954; }
+  .text-verde-panda { color: #1DB954; }
+  .bg-amarillo-suave { background-color: #FFD166; }
+}

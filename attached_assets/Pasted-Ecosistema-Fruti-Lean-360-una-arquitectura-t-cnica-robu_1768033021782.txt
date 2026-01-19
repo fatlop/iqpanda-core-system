@@ -1,0 +1,93 @@
+Ecosistema Fruti-Lean 360°": una arquitectura técnica robusta, escalable y, lo más importante, de coste 0$ utilizando el stack de Google.
+1. Mapa de Flujo del Usuario (Ciclo de Vida del Producto)
+
+El flujo está diseñado para cerrar el bucle de desperdicio:
+
+    Entrada (Check-in): Registro vía AppSheet con foto. La IA categoriza frescura inicial.
+
+    Venta (POS): Registro rápido de transacciones. El stock disminuye en tiempo real.
+
+    Monitoreo (Smart Logic): Un script de Google analiza cada noche el stock vs. tiempo de vida.
+
+    Acción Automática:
+
+        Si el stock es alto y la fecha de caducidad estimada es < 2 días -> Alerta de Promoción Relámpago.
+
+        Si el stock es bajo -> Sugerencia de compra al proveedor.
+
+    Salida Final: Venta exitosa o registro de merma (composta) para re-ajustar algoritmos de compra.
+
+2. Arquitectura de Pantallas y UX (AppSheet PWA)
+
+Utilizaremos AppSheet (incluido en el workspace de Google o gratis para uso personal/prototipo) para crear la App Progresiva.
+Pantalla A: Recepción "Vision-In"
+
+    Propósito: Controlar la calidad del proveedor.
+
+    Elementos:
+
+        Botón flotante (+): Abre cámara.
+
+        Campos: Selector de Producto (Dropdown), Peso (Numérico), Proveedor.
+
+        Botón "Escaneo de Calidad": Mediante OCR/Vision (nativo de AppSheet), extrae datos de facturas físicas si las hay.
+
+    Lógica: Al guardar, se activa un "Timestamp" (Marca de tiempo) que inicia el cronómetro de frescura.
+
+Pantalla B: POS "Easy-Sell"
+
+    Propósito: Velocidad de cobro.
+
+    Interfaz: Galería de imágenes grandes (Card View). Al tocar una fruta, se abre un modal de peso.
+
+    Botón de Acción: "Vender".
+
+    Lógica de Combo: Si el usuario selecciona "Papaya", un mensaje emergente (Hint) dice: "¿Lleva Limón? Combo sugerido: -15% en el limón".
+
+Pantalla C: Dashboard "Cerebro"
+
+    Visualización: Gráficos de barras dinámicos.
+
+    Indicadores Clave (KPIs):
+
+        Termómetro de Merma: Rojo/Amarillo/Verde según el desperdicio del día.
+
+        Proyección de Ventas: "Mañana se esperan 50kg de Naranja (Día Soleado)".
+
+        Botón "Pedir a Proveedor": Abre WhatsApp con el mensaje: "Hola [Proveedor], necesito [X] kg de [Fruta] basado en mi stock actual".
+
+3. Diccionario de Datos (Google Sheets)
+
+Para que el sistema funcione, necesitamos 4 pestañas en un mismo Excel de Google:
+Pestaña	Columnas Clave	Propósito
+INVENTARIO	ID_Prod, Nombre, Stock_Actual, Fecha_Entrada, Dias_Vida_Util, Precio_Costo, Precio_Venta	Base central del stock.
+VENTAS	ID_Venta, ID_Prod, Cantidad, Fecha_Hora, Metodo_Pago, Margen_Ganancia	Histórico para la IA.
+MERMAS	ID_Merma, ID_Prod, Cantidad, Causa (Daño/Madurez), Coste_Perdida	Ajuste de predicción.
+CLIMA_LOG	Fecha, Pronostico (Sol/Lluvia), Temperatura, Festivo (S/N)	Datos externos para la IA.
+4. Implementación "Bootstrap" (Cero Inversión)
+Paso 1: El Cerebro (Google Apps Script)
+
+En tu Google Sheet, ve a Extensiones > Apps Script. Copia un código simple que conecte con la API de Gemini (Free Tier) o utiliza una lógica de regresión simple:
+
+    Lógica de Predicción: Compara Ventas_Lunes_Pasado con Clima_Mañana.
+
+    Lógica de Promoción: Un script que corre cada 6 horas: Si (Fecha_Actual - Fecha_Entrada) > (Dias_Vida_Util * 0.7), marcar como "PROMOCIÓN".
+
+Paso 2: La App (AppSheet)
+
+    Conecta AppSheet a tu Google Sheet.
+
+    En la sección "UX", crea las vistas mencionadas arriba.
+
+    En "Automation", configura un envío de correo o notificación push si el stock de un producto crítico llega a 0.
+
+Paso 3: Integración WhatsApp (Gratis)
+
+No uses APIs oficiales caras. Usa el enlace de protocolo: https://wa.me/[Telefono]?text=[Mensaje_Personalizado]. AppSheet puede generar este enlace dinámicamente usando los datos de tu lista de compras.
+5. Estrategia de Ventas: "Venta Sugerida Data-Driven"
+
+Utilizaremos la Matriz de Afinidad de Productos. El sistema identificará patrones en tus ventas:
+
+    Venta Cruzada (Cross-sell): Si el 80% de quienes compran Aguacate también compran Cilantro, la App resaltará el Cilantro cuando el cajero marque Aguacate.
+
+    Promociones Anti-Merma: Si el sistema detecta 10kg de plátano muy maduro, la PWA cambia automáticamente el precio en el POS y lanza un aviso: "¡Hora del Smoothie! Plátano maduro a mitad de precio solo por 2 horas".
