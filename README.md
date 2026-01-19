@@ -95,47 +95,42 @@ perdidas por semana. Eso son $1,200 MXN al mes."
 ## 🚀 Inicio Rápido
 
 ### Requisitos Previos
-- Node.js (v18 o superior)
-- MongoDB (v6 o superior)
-- npm o yarn
+- Node.js v24.13.0 o superior
+- MongoDB v6 o superior
+- npm (incluido con Node.js)
 
 ### Instalación
 
-1. **Clonar el repositorio**
 ```bash
+# 1. Clonar el repositorio
 git clone https://github.com/fatlop/iqpanda-core-system.git
 cd iqpanda-core-system
-```
 
-2. **Instalar dependencias**
-```bash
+# 2. Instalar dependencias (backend + frontend)
 npm install
-```
 
-3. **Configurar variables de entorno**
-```bash
+# 3. Configurar variables de entorno
 cp .env.example .env
-```
+# Edita .env con tus valores
 
-Editar `.env` con tus configuraciones:
-```
-PORT=3000
-NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/iqpanda-core
-LOG_LEVEL=info
-```
-
-4. **Iniciar el servidor**
-```bash
-# Desarrollo (con recarga automática)
+# 4. Iniciar el proyecto completo
 npm run dev
-
-# Producción
-npm run build
-npm start
 ```
 
-El servidor estará disponible en `http://localhost:3000`
+El servidor backend estará en `http://localhost:3000`  
+El frontend estará en `http://localhost:5173`
+
+### Scripts Principales
+
+```bash
+npm run dev          # Desarrollo (backend + frontend)
+npm run build        # Build producción
+npm start            # Iniciar en producción
+npm test             # Correr tests
+npm run lint:all     # Verificar código
+```
+
+📖 **Para más detalles**, consulta [DEVELOPMENT.md](DEVELOPMENT.md)
 
 ## 📚 Uso de la API
 
