@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐼 IQpanda - Sistema Administrativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding:  0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 20px 30px;
+            border-radius:  15px;
+            box-shadow:  0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius:  15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+        }
+
+        .content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius:  15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display:  block;
+            margin-bottom:  8px;
+            font-weight:  bold;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width:  100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size:  16px;
+            transition: border 0.3s;
+        }
+
+        input:focus, select: focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        . btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        . btn-danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        . card p {
+            color: #666;
+            margin:  5px 0;
+        }
+
+        .product-item, .sale-item {
+            background: #fff;
+            padding: 15px;
+            margin:  10px 0;
+            border-radius: 10px;
+            border:  2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-item:hover, .sale-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+            transition: all 0.3s;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        . stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius:  15px;
+            text-align:  center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-card h2 {
+            font-size: 2. 5em;
+            margin-bottom: 10px;
+        }
+
+        . stat-card p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        . ai-insight {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin:  15px 0;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .ai-insight h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .ai-insight p {
+            color: #666;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        . sale-items-list {
+            background: #f8f9fa;
+            padding:  15px;
+            border-radius:  10px;
+            margin:  15px 0;
+        }
+
+        .sale-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            margin:  5px 0;
+            border-radius: 5px;
+        }
+
+        #saleTotal {
+            font-size: 1.5em;
+            color: #28a745;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 15px;
+            padding:  15px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 20px 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            border-left: 5px solid #28a745;
+        }
+
+        .notification.error {
+            border-left-color: #dc3545;
+        }
+
+        .notification.show {
+            display: block;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            . tabs {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐼 IQpanda Sistema Administrativo</h1>
+            <div>
+                <span id="connectionStatus" style="color: #28a745; font-weight: bold;">● Conectado</span>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('dashboard')">📊 Dashboard</button>
+            <button class="tab" onclick="showTab('productos')">📦 Productos</button>
+            <button class="tab" onclick="showTab('ventas')">💰 Ventas</button>
+            <button class="tab" onclick="showTab('nueva-venta')">🛒 Nueva Venta</button>
+            <button class="tab" onclick="showTab('ia')">🧠 Panda AI</button>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="content active">
+            <h2>📊 Dashboard General</h2>
+            <div class="stats" id="statsContainer">
+                <div class="stat-card">
+                    <h2 id="totalVentas">0</h2>
+                    <p>Total Ventas</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="totalProductos">0</h2>
+                    <p>Productos</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="ingresoTotal">$0</h2>
+                    <p>Ingresos</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="stockBajo">0</h2>
+                    <p>Stock Bajo</p>
+                </div>
+            </div>
+            <button class="btn" onclick="loadDashboard()">🔄 Actualizar Dashboard</button>
+        </div>
+
+        <!-- PRODUCTOS -->
+        <div id="productos" class="content">
+            <h2>📦 Gestión de Productos</h2>
+            
+            <div style="margin:  20px 0;">
+                <h3>➕ Agregar Nuevo Producto</h3>
+                <form id="productoForm" onsubmit="crearProducto(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre del Producto *</label>
+                            <input type="text" id="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Código *</label>
+                            <input type="text" id="codigo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Categoría *</label>
+                            <input type="text" id="categoria" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio *</label>
+                            <input type="number" step="0.01" id="precio" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Cantidad Disponible *</label>
+                            <input type="number" id="cantidadDisponible" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad Mínima</label>
+                            <input type="number" id="cantidadMinima" value="10">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Unidad de Medida *</label>
+                            <select id="unidadMedida">
+                                <option value="unidad">Unidad</option>
+                                <option value="pieza">Pieza</option>
+                                <option value="bolsa">Bolsa</option>
+                                <option value="caja">Caja</option>
+                                <option value="kilo">Kilogramo</option>
+                                <option value="litro">Litro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <input type="text" id="descripcion">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">✅ Crear Producto</button>
+                </form>
+            </div>
+
+            <hr style="margin: 30px 0;">
+
+            <h3>📋 Lista de Productos</h3>
+            <button class="btn btn-success" onclick="cargarProductos()">🔄 Actualizar Lista</button>
+            <div id="listaProductos" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- VENTAS -->
+        <div id="ventas" class="content">
+            <h2>💰 Historial de Ventas</h2>
+            <button class="btn btn-success" onclick="cargarVentas()">🔄 Actualizar Ventas</button>
+            <div id="listaVentas" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- NUEVA VENTA -->
+        <div id="nueva-venta" class="content">
+            <h2>🛒 Realizar Nueva Venta</h2>
+            
+            <div class="form-group">
+                <label>Nombre del Cliente *</label>
+                <input type="text" id="clienteNombre" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="clienteTelefono">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="clienteEmail">
+                </div>
+            </div>
+
+            <hr style="margin: 20px 0;">
+
+            <h3>🛍️ Productos a Vender</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Seleccionar Producto</label>
+                    <select id="productoVenta"></select>
+                </div>
+                <div class="form-group">
+                    <label>Cantidad</label>
+                    <input type="number" id="cantidadVenta" value="1" min="1">
+                </div>
+            </div>
+            <button class="btn btn-success" onclick="agregarProductoAVenta()">➕ Agregar a la Venta</button>
+
+            <div class="sale-items-list">
+                <h4>Productos en esta venta:</h4>
+                <div id="productosEnVenta"></div>
+                <div id="saleTotal">Total: $0.00</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Método de Pago</label>
+                    <select id="metodoPago">
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="transferencia">Transferencia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Descuento ($)</label>
+                    <input type="number" step="0.01" id="descuento" value="0" onchange="actualizarVistaVenta()">
+                </div>
+            </div>
+
+            <button class="btn" onclick="realizarVenta()" style="width: 100%; font-size: 1.2em; padding: 20px;">
+                💳 COBRAR Y FINALIZAR VENTA
+            </button>
+        </div>
+
+        <!-- PANDA AI -->
+        <div id="ia" class="content">
+            <h2>🧠 Panda AI - Asesor Inteligente</h2>
+            <button class="btn" onclick="cargarPandaAI()">🔄 Obtener Insights de Panda AI</button>
+            <div id="pandaInsights" style="margin-top:  20px;"></div>
+
+            <hr style="margin: 30px 0;">
+
+            <h3>💡 Smart Pricing</h3>
+            <button class="btn btn-success" onclick="cargarSmartPricing()">📊 Analizar Precios</button>
+            <div id="smartPricing" style="margin-top: 20px;"></div>
+
+            <hr style="margin: 30px 0;">
+
+            <h3>🔮 Predictor Financiero</h3>
+            <button class="btn btn-success" onclick="cargarPredictor()">📈 Generar Proyección 30 días</button>
+            <div id="predictor" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        let productosDisponibles = [];
+        let productosEnVentaActual = [];
+
+        // Mostrar tabs
+        function showTab(tabName) {
+            document.querySelectorAll('. content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Cargar datos al cambiar de tab
+            if (tabName === 'dashboard') loadDashboard();
+            if (tabName === 'productos') cargarProductos();
+            if (tabName === 'ventas') cargarVentas();
+            if (tabName === 'nueva-venta') cargarProductosParaVenta();
+            if (tabName === 'ia') cargarPandaAI();
+        }
+
+        // Notificaciones
+        function showNotification(message, isError = false) {
+            const notif = document.getElementById('notification');
+            notif.textContent = message;
+            notif.className = 'notification show' + (isError ? ' error' : '');
+            setTimeout(() => notif.classList.remove('show'), 3000);
+        }
+
+        // DASHBOARD
+        async function loadDashboard() {
+            try {
+                const [ventasRes, productosRes, stockBajoRes] = await Promise. all([
+                    fetch(`${API_URL}/api/ventas`),
+                    fetch(`${API_URL}/api/inventario`),
+                    fetch(`${API_URL}/api/inventario/stock-bajo`)
+                ]);
+
+                const ventas = await ventasRes.json();
+                const productos = await productosRes.json();
+                const stockBajo = await stockBajoRes.json();
+
+                document.getElementById('totalVentas').textContent = ventas.total || 0;
+                document.getElementById('totalProductos').textContent = productos.total || 0;
+                
+                const ingresos = ventas.ventas?. reduce((sum, v) => sum + v.total, 0) || 0;
+                document.getElementById('ingresoTotal').textContent = '$' + ingresos.toFixed(2);
+                document.getElementById('stockBajo').textContent = stockBajo.total || 0;
+
+                showNotification('✅ Dashboard actualizado');
+            } catch (error) {
+                showNotification('Error al cargar dashboard: ' + error.message, true);
+            }
+        }
+
+        // CREAR PRODUCTO
+        async function crearProducto(event) {
+            event.preventDefault();
+            
+            const producto = {
+                nombre: document.getElementById('nombre').value,
+                codigo: document.getElementById('codigo').value,
+                categoria: document.getElementById('categoria').value,
+                precio: parseFloat(document.getElementById('precio').value),
+                cantidadDisponible: parseInt(document.getElementById('cantidadDisponible').value),
+                cantidadMinima: parseInt(document.getElementById('cantidadMinima').value),
+                unidadMedida: document.getElementById('unidadMedida').value,
+                descripcion: document. getElementById('descripcion').value
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/api/inventario`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(producto)
+                });
+
+                const data = await res.json();
+                
+                if (data.exito) {
+                    showNotification('✅ Producto creado exitosamente');
+                    document.getElementById('productoForm').reset();
+                    cargarProductos();
+                } else {
+                    showNotification('❌ ' + data.mensaje, true);
+                }
+            } catch (error) {
+                showNotification('❌ Error:  ' + error.message, true);
+            }
+        }
+
+        // CARGAR PRODUCTOS
+        async function cargarProductos() {
+            try {
+                const res = await fetch(`${API_URL}/api/inventario`);
+                const data = await res.json();
+
+                const lista = document.getElementById('listaProductos');
+                lista.innerHTML = '';
+
+                if (data.productos && data.productos.length > 0) {
+                    data.productos.forEach(p => {
+                        lista.innerHTML += `
+                            <div class="product-item">
+                                <div>
+                                    <strong>${p.nombre}</strong> (${p.codigo})<br>
+                                    <span style="color: #666;">
+                                        ${p.categoria} | $${p.precio} | Stock: ${p.cantidadDisponible} ${p.unidadMedida}
+                                    </span>
+                                </div>
+                                <div>
+                                    <button class="btn btn-danger btn-small" onclick="eliminarProducto('${p._id}')">
+                                        🗑️ Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    lista.innerHTML = '<p style="text-align: center; color: #999;">No hay productos aún.  ¡Crea tu primer producto!</p>';
+                }
+            } catch (error) {
+                showNotification('❌ Error al cargar productos', true);
+            }
+        }
+
+        // ELIMINAR PRODUCTO
+        async function eliminarProducto(id) {
+            if (! confirm('¿Seguro que deseas eliminar este producto?')) return;
+
+            try {
+                const res = await fetch(`${API_URL}/api/inventario/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await res.json();
+                
+                if (data.exito) {
+                    showNotification('✅ Producto eliminado');
+                    cargarProductos();
+                } else {
+                    showNotification('❌ ' + data.mensaje, true);
+                }
+            } catch (error) {
+                showNotification('❌ Error al eliminar', true);
+            }
+        }
+
+        // CARGAR VENTAS
+        async function cargarVentas() {
+            try {
+                const res = await fetch(`${API_URL}/api/ventas`);
+                const data = await res.json();
+
+                const lista = document.getElementById('listaVentas');
+                lista.innerHTML = '';
+
+                if (data.ventas && data.ventas.length > 0) {
+                    data.ventas.forEach(v => {
+                        const fecha = new Date(v.fecha).toLocaleDateString('es-MX');
+                        lista.innerHTML += `
+                            <div class="sale-item">
+                                <div>
+                                    <strong>${v.numeroVenta}</strong><br>
+                                    <span style="color: #666;">
+                                        ${v.cliente. nombre} | ${fecha} | ${v.metodoPago}
+                                    </span>
+                                </div>
+                                <div style="text-align: right;">
+                                    <strong style="color: #28a745; font-size: 1.2em;">$${v. total.toFixed(2)}</strong><br>
+                                    <span style="color: #999;">${v.items.length} producto(s)</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    lista.innerHTML = '<p style="text-align: center; color: #999;">No hay ventas registradas. ¡Realiza tu primera venta!</p>';
+                }
+            } catch (error) {
+                showNotification('❌ Error al cargar ventas', true);
+            }
+        }
+
+        // CARGAR PRODUCTOS PARA VENTA
+        async function cargarProductosParaVenta() {
+            try {
+                const res = await fetch(`${API_URL}/api/inventario`);
+                const data = await res.json();
+                productosDisponibles = data.productos || [];
+
+                const select = document.getElementById('productoVenta');
+                select.innerHTML = '<option value="">Selecciona un producto... </option>';
+
+                productosDisponibles.forEach(p => {
+                    select.innerHTML += `<option value="${p._id}">${p.nombre} - $${p.precio} (Stock: ${p.cantidadDisponible})</option>`;
+                });
+            } catch (error) {
+                showNotification('❌ Error al cargar productos', true);
+            }
+        }
+
+        // AGREGAR PRODUCTO A VENTA
+        function agregarProductoAVenta() {
+            const productoId = document.getElementById('productoVenta').value;
+            const cantidad = parseInt(document.getElementById('cantidadVenta').value);
+
+            if (!productoId) {
+                showNotification('❌ Selecciona un producto', true);
+                return;
+            }
+
+            const producto = productosDisponibles.find(p => p._id === productoId);
+            
+            if (cantidad > producto.cantidadDisponible) {
+                showNotification(`❌ Solo hay ${producto.cantidadDisponible} disponibles`, true);
+                return;
+            }
+
+            productosEnVentaActual. push({
+                producto: producto._id,
+                nombre: producto.nombre,
+                cantidad: cantidad,
+                precio: producto.precio,
+                subtotal: cantidad * producto.precio
+            });
+
+            actualizarVistaVenta();
+            showNotification(`✅ ${producto.nombre} agregado`);
+        }
+
+        // ACTUALIZAR VISTA DE VENTA
+        function actualizarVistaVenta() {
+            const container = document.getElementById('productosEnVenta');
+            container.innerHTML = '';
+
+            let subtotal = 0;
+
+            productosEnVentaActual.forEach((item, index) => {
+                subtotal += item.subtotal;
+                container.innerHTML += `
+                    <div class="sale-item-row">
+                        <span><strong>${item.nombre}</strong> x ${item.cantidad}</span>
+                        <span>$${item.subtotal.toFixed(2)}</span>
+                        <button class="btn btn-danger btn-small" onclick="quitarProductoVenta(${index})">❌</button>
+                    </div>
+                `;
+            });
+
+            const descuento = parseFloat(document.getElementById('descuento').value) || 0;
+            const impuestos = (subtotal - descuento) * 0.16;
+            const totalFinal = subtotal - descuento + impuestos;
+
+            document.getElementById('saleTotal').innerHTML = `
+                Subtotal: $${subtotal. toFixed(2)}<br>
+                Descuento: -$${descuento.toFixed(2)}<br>
+                IVA (16%): +$${impuestos.toFixed(2)}<br>
+                <strong style="color: #28a745; font-size: 1.3em;">Total: $${totalFinal.toFixed(2)}</strong>
+            `;
+        }
+
+        // QUITAR PRODUCTO DE VENTA
+        function quitarProductoVenta(index) {
+            productosEnVentaActual.splice(index, 1);
+            actualizarVistaVenta();
+            showNotification('Producto eliminado de la venta');
+        }
+
+        // REALIZAR VENTA
+        async function realizarVenta() {
+            if (productosEnVentaActual.length === 0) {
+                showNotification('❌ Agrega al menos un producto', true);
+                return;
+            }
+
+            const clienteNombre = document.getElementById('clienteNombre').value;
+            if (!clienteNombre) {
+                showNotification('❌ Ingresa el nombre del cliente', true);
+                return;
+            }
+
+            const subtotal = productosEnVentaActual.reduce((sum, item) => sum + item.subtotal, 0);
+            const descuento = parseFloat(document. getElementById('descuento').value) || 0;
+            const impuestos = (subtotal - descuento) * 0.16;
+
+            const venta = {
+                cliente: {
+                    nombre: clienteNombre,
+                    telefono: document.getElementById('clienteTelefono').value,
+                    email: document.getElementById('clienteEmail').value
+                },
+                items: productosEnVentaActual. map(item => ({
+                    producto: item.producto,
+                    cantidad: item.cantidad
+                })),
+                metodoPago: document.getElementById('metodoPago').value,
+                descuento: descuento,
+                impuestos: impuestos
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/api/ventas`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(venta)
+                });
+
+                const data = await res.json();
+
+                if (data.exito) {
+                    showNotification(`✅ Venta realizada:  ${data.venta.numeroVenta}`);
+                    
+                    // Limpiar formulario
+                    productosEnVentaActual = [];
+                    document.getElementById('clienteNombre').value = '';
+                    document.getElementById('clienteTelefono').value = '';
+                    document.getElementById('clienteEmail').value = '';
+                    document.getElementById('descuento').value = '0';
+                    actualizarVistaVenta();
+                    
+                    alert(`🎉 VENTA EXITOSA\n\nNúmero:  ${data.venta.numeroVenta}\nTotal: $${data.venta. total.toFixed(2)}\n\n¡Gracias por tu compra!`);
+                } else {
+                    showNotification('❌ ' + data.mensaje, true);
+                }
+            } catch (error) {
+                showNotification('❌ Error: ' + error.message, true);
+            }
+        }
+
+        // PANDA AI
+        async function cargarPandaAI() {
+            try {
+                const res = await fetch(`${API_URL}/api/ia/panda`);
+                const data = await res.json();
+
+                const container = document.getElementById('pandaInsights');
+                container.innerHTML = '';
+
+                if (data.insights && data.insights.length > 0) {
+                    data. insights.forEach(insight => {
+                        const prioridad = insight.prioridad === 'alta' ? '🔴' : insight.prioridad === 'media' ? '🟡' :  '🟢';
+                        container.innerHTML += `
+                            <div class="ai-insight">
+                                <h4>${prioridad} ${insight.titulo}</h4>
+                                <p>${insight.mensaje}</p>
+                                ${insight.impactoEstimado ?  `<p><strong>💰 Impacto: </strong> ${insight.impactoEstimado}</p>` : ''}
+                            </div>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<p style="text-align: center; color: #999;">Aún no hay suficientes datos para generar insights.  ¡Crea productos y ventas! </p>';
+                }
+            } catch (error) {
+                showNotification('❌ Error al cargar Panda AI', true);
+            }
+        }
+
+        // SMART PRICING
+        async function cargarSmartPricing() {
+            try {
+                const res = await fetch(`${API_URL}/api/ia/precios`);
+                const data = await res.json();
+
+                const container = document.getElementById('smartPricing');
+                container.innerHTML = '';
+
+                if (data. sugerencias && data.sugerencias.length > 0) {
+                    data.sugerencias. forEach(s => {
+                        container.innerHTML += `
+                            <div class="card">
+                                <h3>${s.nombreProducto}</h3>
+                                <p><strong>Precio Actual:</strong> $${s.precioActual.toFixed(2)}</p>
+                                <p><strong>Precio Sugerido:</strong> <span style="color: #28a745; font-size: 1.2em;">$${s.precioSugerido.toFixed(2)}</span></p>
+                                <p><strong>Razón: </strong> ${s.razon}</p>
+                                <p><strong>💰 Impacto:</strong> ${s. impactoEstimado}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<p style="text-align: center; color:  #999;">No hay sugerencias de precios disponibles.  Necesitas más datos de ventas. </p>';
+                }
+            } catch (error) {
+                showNotification('❌ Error al cargar Smart Pricing', true);
+            }
+        }
+
+        // PREDICTOR
+        async function cargarPredictor() {
+            try {
+                const res = await fetch(`${API_URL}/api/ia/proyeccion? dias=30`);
+                const data = await res.json();
+
+                const container = document.getElementById('predictor');
+                
+                if (data.proyeccion) {
+                    const p = data.proyeccion;
+                    container.innerHTML = `
+                        <div class="grid">
+                            <div class="card">
+                                <h3>📊 Escenario Actual</h3>
+                                <p><strong>Ventas Estimadas:</strong> $${p. escenarioActual.ventasEstimadas.toFixed(2)}</p>
+                                <p><strong>Transacciones: </strong> ${p.escenarioActual. transaccionesEstimadas}</p>
+                                <p><strong>Crecimiento:</strong> ${p. escenarioActual.crecimientoEstimado. toFixed(1)}%</p>
+                            </div>
+                            <div class="card" style="border-left-color: #28a745;">
+                                <h3>🚀 Escenario Optimizado</h3>
+                                <p><strong>Ventas Estimadas:</strong> <span style="color: #28a745;">$${p.escenarioOptimizado.ventasEstimadas.toFixed(2)}</span></p>
+                                <p><strong>Transacciones:</strong> ${p.escenarioOptimizado.transaccionesEstimadas}</p>
+                                <p><strong>Ganancia Extra:</strong> <span style="color: #28a745; font-size: 1.2em;">$${p.escenarioOptimizado.gananciaExtra.toFixed(2)}</span></p>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 20px;">💡 Cambios Sugeridos: </h4>
+                        ${p.escenarioOptimizado.cambiosSugeridos. map(c => `
+                            <div class="card">
+                                <strong>${c.tipo}:</strong> ${c.descripcion}<br>
+                                <span style="color: #28a745;">📈 ${c.impacto}</span>
+                            </div>
+                        `).join('')}
+                    `;
+                } else {
+                    container.innerHTML = '<p style="text-align: center; color: #999;">No hay datos suficientes para proyección.  Crea más ventas. </p>';
+                }
+            } catch (error) {
+                showNotification('❌ Error al cargar predictor', true);
+            }
+        }
+
+        // Cargar dashboard al inicio
+        window.onload = () => {
+            loadDashboard();
+        };
+    </script>
+</body>
+</html>
