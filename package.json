@@ -1,22 +1,50 @@
 {
   "name": "iqpanda-core-system",
-  "version": "1.0.0",
-  "description": "Sistema administrativo amigable y escalable para pequeñas y medianas empresas",
-  "main": "dist/index.js",
+  "version": "2.0.0",
+  "description": "Sistema administrativo con IA para pequeñas y medianas empresas",
+  "private": true,
+  "workspaces": [
+    "client"
+  ],
+  "engines": {
+    "node": ">=24.13.0"
+  },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev:client": "npm run dev --workspace=client",
+    
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "tsc",
+    "build:client": "npm run build --workspace=client",
+    
     "start": "node dist/index.js",
+    "start:prod": "NODE_ENV=production node dist/index.js",
+    
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    
     "lint": "eslint src --ext .ts",
-    "format": "prettier --write \"src/**/*.ts\""
+    "lint:client": "npm run lint --workspace=client",
+    "lint:all": "npm run lint && npm run lint:client",
+    
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:client": "npm run format --workspace=client",
+    "format:all": "npm run format && npm run format:client",
+    
+    "clean": "rm -rf dist node_modules client/dist client/node_modules",
+    "fresh": "npm run clean && npm install"
   },
   "keywords": [
     "administrative",
     "sales",
     "inventory",
     "business-management",
-    "iqpanda"
+    "iqpanda",
+    "ai",
+    "machine-learning",
+    "predictive-analytics"
   ],
   "author": "IQpanda Tecnovador",
   "license": "MIT",
@@ -36,6 +64,7 @@
     "@types/node": "^20.10.5",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "jest": "^29.7.0",
     "prettier": "^3.1.1",
