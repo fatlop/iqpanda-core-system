@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="IQpanda Tecnovador - Transformamos tu mundo digital con innovación y IA. Servicios de desarrollo web, apps, marketing digital, IA personalizada y consultoría tecnológica.">
+  <meta name="keywords"
+    content="desarrollo web, IA, inteligencia artificial, marketing digital, e-commerce, consultoría tecnológica, apps móviles">
+  <meta name="author" content="IQpanda Tecnovador">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="IQpanda Tecnovador - Innovación que transforma">
+  <meta property="og:description" content="Soluciones tecnológicas avanzadas impulsadas por inteligencia artificial">
+  <meta property="og:type" content="website">
+
+  <title>IQpanda Tecnovador - Innovación que transforma</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body>
+
+  <!-- ========== HEADER & NAVIGATION ========== -->
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="#" class="logo">
+        <img src="assets/images/logo.png" alt="IQpanda Tecnovador Logo">
+      </a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#servicios" class="nav-link">Servicios</a></li>
+        <li><a href="#portafolio" class="nav-link">Portafolio</a></li>
+        <li><a href="#ia-asistente" class="nav-link">IA Asistente</a></li>
+        <li><a href="#blog" class="nav-link">Blog</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+
+      <button class="btn btn-primary" id="ctaBtn">Solicitar Asesoría</button>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Transformamos tu mundo digital con innovación y IA</h1>
+        <p class="hero-subtitle">
+          Soluciones tecnológicas avanzadas impulsadas por inteligencia artificial
+          para un futuro conectado.
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-primary">Explora IQpanda</button>
+          <button class="btn btn-secondary" style="margin-left: 1rem;">Ver Demo</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/images/hero-panda.png" alt="IQpanda Tech Mascot" class="hero-panda-image">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES SECTION ========== -->
+  <section class="services section" id="servicios">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nuestros Servicios del Futuro</h2>
+        <p style="max-width: 600px; margin: 1rem auto; color: var(--color-gray);">
+          Tecnologías de vanguardia para impulsar tu transformación digital
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Service Card 1 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">🌐</div>
+          <h3 class="service-title">Diseño web y apps</h3>
+          <p class="service-description">
+            Experiencias digitales inmersivas y funcionales. Desarrollamos sitios web
+            y aplicaciones móviles con diseño de vanguardia y rendimiento óptimo.
+          </p>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">📊</div>
+          <h3 class="service-title">Marketing digital y e-commerce</h3>
+          <p class="service-description">
+            Experiencia digitales customizadas y comercio electrónico. Estrategias
+            de crecimiento y plataformas de venta optimizadas para conversión.
+          </p>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">🤖</div>
+          <h3 class="service-title">Desarrollo de IA personalizada</h3>
+          <p class="service-description">
+            Desarrolla tu procesador de IA personalizada. Modelos inteligentes
+            adaptados a tus necesidades específicas de negocio.
+          </p>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">💡</div>
+          <h3 class="service-title">Consultoría tecnológica</h3>
+          <p class="service-description">
+            Consultoría tecnológica y un ecosistema inteligente. Asesoramiento
+            estratégico para optimizar tu infraestructura digital.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTFOLIO SECTION ========== -->
+  <section class="portfolio section" id="portafolio">
+    <div class="container">
+      <div class="section-title">
+        <h2>Proyectos Destacados</h2>
+        <p style="max-width: 600px; margin: 1rem auto; color: var(--color-gray);">
+          Innovaciones que están transformando industrias
+        </p>
+      </div>
+
+      <div class="portfolio-slider">
+        <div class="portfolio-track" id="portfolioTrack">
+          <!-- Portfolio Card 1 -->
+          <div class="portfolio-card">
+            <div class="portfolio-image"
+              style="background: linear-gradient(135deg, #0080FF 0%, #00FF88 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+              📱
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">AI Analytics Platform</h3>
+              <p class="portfolio-description">
+                Plataforma de visualización de datos en tiempo real con
+                predicción predictiva mediante IA.
+              </p>
+            </div>
+          </div>
+
+          <!-- Portfolio Card 2 -->
+          <div class="portfolio-card">
+            <div class="portfolio-image"
+              style="background: linear-gradient(135deg, #8B3DFF 0%, #FF3D8B 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+              🎯
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">Smart IoT Dashboard</h3>
+              <p class="portfolio-description">
+                Panel de control conectado para gestión de dispositivos
+                IoT y automatización inteligente.
+              </p>
+            </div>
+          </div>
+
+          <!-- Portfolio Card 3 -->
+          <div class="portfolio-card">
+            <div class="portfolio-image"
+              style="background: linear-gradient(135deg, #00FF88 0%, #0080FF 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+              🔐
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">Blockchain Secure Wallet</h3>
+              <p class="portfolio-description">
+                Billetera descentralizada con seguridad de activos
+                cripto de próxima generación.
+              </p>
+            </div>
+          </div>
+
+          <!-- Portfolio Card 4 -->
+          <div class="portfolio-card">
+            <div class="portfolio-image"
+              style="background: linear-gradient(135deg, #FF3D8B 0%, #FFA500 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+              🛒
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">E-commerce Premium</h3>
+              <p class="portfolio-description">
+                Tienda online con experiencia de usuario fluida y
+                conversión optimizada por IA.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <button class="slider-btn" id="prevBtn" aria-label="Previous">‹</button>
+          <button class="slider-btn" id="nextBtn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AI LUUMI SECTION ========== -->
+  <section class="ai-section section" id="ia-asistente">
+    <div class="container">
+      <div class="ai-content">
+        <div class="ai-visual">
+          <canvas id="luumiCanvas" width="400" height="400" class="luumi-avatar"></canvas>
+        </div>
+
+        <div class="ai-chat">
+          <h2 class="ai-title">Consulta con nuestra IA experta</h2>
+          <p style="margin-bottom: 2rem; opacity: 0.9;">
+            Luumi está aquí para ayudarte 24/7 con tus consultas tecnológicas
+          </p>
+
+          <div class="chat-message user">
+            <strong>Usuario:</strong> ¿Cómo optimizar mi nube híbrida?
+          </div>
+
+          <div class="chat-message ai">
+            <strong>Luumi AI:</strong> Analizando datos... Recomiendo una arquitectura
+            de microservicios con contenedores Docker y orquestación Kubernetes
+            para máxima escalabilidad.
+          </div>
+
+          <div class="chat-message user">
+            <strong>Usuario:</strong> ¿Cuál es el mejor stack para mi app?
+          </div>
+
+          <div class="chat-message ai">
+            <strong>Luumi AI:</strong> Basándome en tus requisitos, sugiero Next.js
+            para frontend, Node.js + Express para backend, y PostgreSQL para
+            base de datos. Puedo generar la arquitectura completa.
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">
+            Iniciar Conversación con Luumi
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BLOG SECTION ========== -->
+  <section class="blog section" id="blog">
+    <div class="container">
+      <div class="section-title">
+        <h2>Blog & Recursos</h2>
+        <p style="max-width: 600px; margin: 1rem auto; color: var(--color-gray);">
+          Últimas tendencias en tecnología e innovación
+        </p>
+      </div>
+
+      <div class="blog-filters">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="ia">IA</button>
+        <button class="filter-btn" data-filter="innovacion">Innovación</button>
+        <button class="filter-btn" data-filter="tips">Tips Tecnológicos</button>
+      </div>
+
+      <div class="blog-grid">
+        <!-- Blog Card 1 -->
+        <article class="blog-card" data-category="ia">
+          <div class="blog-image"
+            style="background: linear-gradient(135deg, #0080FF 0%, #8B3DFF 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+            🤖
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">IA</span>
+            <h3 class="blog-title">El futuro de la IA Generativa en 2026</h3>
+            <p class="blog-excerpt">
+              Exploramos las últimas tendencias en modelos de lenguaje y
+              cómo están revolucionando la creación de contenidos...
+            </p>
+          </div>
+        </article>
+
+        <!-- Blog Card 2 -->
+        <article class="blog-card" data-category="innovacion">
+          <div class="blog-image"
+            style="background: linear-gradient(135deg, #00FF88 0%, #0080FF 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+            💡
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Innovación</span>
+            <h3 class="blog-title">Microservicios: Arquitectura del futuro</h3>
+            <p class="blog-excerpt">
+              Descubre cómo las arquitecturas distribuidas están transformando
+              el desarrollo de software empresarial...
+            </p>
+          </div>
+        </article>
+
+        <!-- Blog Card 3 -->
+        <article class="blog-card" data-category="tips">
+          <div class="blog-image"
+            style="background: linear-gradient(135deg, #8B3DFF 0%, #FF3D8B 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+            ⚡
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Tips Tecnológicos</span>
+            <h3 class="blog-title">10 herramientas gratuitas para DevOps</h3>
+            <p class="blog-excerpt">
+              Lista curada de las mejores herramientas open-source para
+              automatizar tu pipeline de desarrollo...
+            </p>
+          </div>
+        </article>
+
+        <!-- Blog Card 4 -->
+        <article class="blog-card" data-category="ia">
+          <div class="blog-image"
+            style="background: linear-gradient(135deg, #FF3D8B 0%, #FFA500 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+            🧠
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">IA</span>
+            <h3 class="blog-title">Machine Learning para principiantes</h3>
+            <p class="blog-excerpt">
+              Guía completa para empezar tu viaje en el aprendizaje
+              automático desde cero...
+            </p>
+          </div>
+        </article>
+
+        <!-- Blog Card 5 -->
+        <article class="blog-card" data-category="innovacion">
+          <div class="blog-image"
+            style="background: linear-gradient(135deg, #FFA500 0%, #FF3D8B 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+            🚀
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Innovación</span>
+            <h3 class="blog-title">Edge Computing: La nueva frontera</h3>
+            <p class="blog-excerpt">
+              Procesamiento distribuido en el borde de la red para
+              latencia ultra-baja y eficiencia...
+            </p>
+          </div>
+        </article>
+
+        <!-- Blog Card 6 -->
+        <article class="blog-card" data-category="tips">
+          <div class="blog-image"
+            style="background: linear-gradient(135deg, #0080FF 0%, #00FF88 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+            🔧
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Tips Tecnológicos</span>
+            <h3 class="blog-title">Optimización de rendimiento web</h3>
+            <p class="blog-excerpt">
+              Técnicas avanzadas para mejorar la velocidad de carga y
+              experiencia de usuario en tu sitio...
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT SECTION ========== -->
+  <section class="section" id="contacto" style="background: var(--color-white);">
+    <div class="container text-center">
+      <h2 style="margin-bottom: 1rem;">¿Listo para transformar tu negocio?</h2>
+      <p style="max-width: 600px; margin: 0 auto 2rem; color: var(--color-gray); font-size: 1.125rem;">
+        Contáctanos y descubre cómo nuestras soluciones pueden impulsar
+        tu transformación digital
+      </p>
+      <button class="btn btn-primary" style="font-size: 1.125rem; padding: 1rem 2.5rem;">
+        Solicitar Consulta Gratuita
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <!-- Company Info -->
+        <div class="footer-section">
+          <h3>IQpanda Tecnovador</h3>
+          <p style="color: var(--color-gray); margin-top: 1rem; line-height: 1.8;">
+            Innovación que transforma. Soluciones tecnológicas de vanguardia
+            para un futuro digital.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-link" aria-label="Instagram">📷</a>
+            <a href="#" class="social-link" aria-label="TikTok">🎵</a>
+            <a href="#" class="social-link" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+          <h3>Enlaces Rápidos</h3>
+          <ul class="footer-links">
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#portafolio">Portafolio</a></li>
+            <li><a href="#ia-asistente">IA Asistente</a></li>
+            <li><a href="#blog">Blog</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer-section">
+          <h3>Servicios</h3>
+          <ul class="footer-links">
+            <li><a href="#">Desarrollo Web</a></li>
+            <li><a href="#">Aplicaciones Móviles</a></li>
+            <li><a href="#">IA Personalizada</a></li>
+            <li><a href="#">Consultoría Tech</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="#">Aviso de Privacidad</a></li>
+            <li><a href="#">Términos de Servicio</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 IQpanda Tecnovador. Todos los derechos reservados.</p>
+        <p style="margin-top: 0.5rem; font-style: italic;">
+          Innovación que transforma
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script src="app.js"></script>
+</body>
+
+</html>

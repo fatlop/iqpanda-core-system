@@ -1,415 +1,221 @@
-# 🐼 IQpanda Core System v2.0 - Con Inteligencia Artificial
+# 🐼 IQpanda Tecnovador - Interfaz Web Profesional
 
-Sistema administrativo revolucionario con IA, desarrollado por IQpanda Tecnovador, enfocado en pequeñas y medianas empresas. No es solo un sistema administrativo, **es tu socio digital inteligente**.
+Interfaz web moderna, futurista y profesional que refleja la esencia de innovación tecnológica, IA y digitalización de servicios.
 
-## 🎯 Visión Revolucionaria
+![IQpanda Tecnovador](assets/images/logo.png)
 
-IQpanda Core System es el corazón digital de IQpanda Tecnovador. Es un **Co-Piloto de Negocios con IA** pensado para negocios reales y personas reales, creado para:
+## ✨ Características Principales
 
-- 📊 **Organizar ventas** de forma clara y ordenada
-- 📦 **Gestionar inventario** con control de stock inteligente  
-- 🎨 **Visualizar el estado del negocio** de manera amigable
-- 💡 **Ayudar a tomar mejores decisiones** sin usar lenguaje técnico
-- 🧠 **Predecir y sugerir** estrategias con Inteligencia Artificial
-- 🔮 **Proyectar tu futuro financiero** con precisión
+### 🎨 Diseño Visual
+- **Estilo Minimalista Futurista**: Interfaz limpia con elementos tecnológicos avanzados
+- **Paleta de Colores Premium**: Azul eléctrico (#0080FF), morado (#8B3DFF), verde neón (#00FF88)
+- **Efectos Visuales Avanzados**: Glassmorphism, gradientes, sombras neón, animaciones fluidas
+- **Tipografía Moderna**: Inter para texto, Orbitron para títulos futuristas
 
-## 🌟 NUEVAS Características con IA
+### 🚀 Secciones Implementadas
 
-### 🐼 Panda AI - Tu Asesor Virtual Inteligente
+1. **Header & Navigation**
+   - Logo profesional de IQpanda
+   - Menú responsive con hamburger menu móvil
+   - Header sticky con efecto de scroll
 
-**No es un chatbot... es tu socio de negocios 24/7**
+2. **Hero Section**
+   - Animación de partículas interactivas con Canvas
+   - Llamados a la acción destacados
+   - Diseño impactante de primera impresión
 
-```
-🐼 Panda AI dice:
-"Noté que los viernes vendes 40% más café que otros días.
-¿Qué tal si preparas más stock los jueves? Te ahorrarías 3 ventas 
-perdidas por semana. Eso son $1,200 MXN al mes."
-```
+3. **Services Section**
+   - 4 tarjetas de servicios con hover effects
+   - Iconografía tecnológica
+   - Animaciones stagger de entrada
 
-**Capacidades:**
-- 🎯 **Predicción de demanda**: Anticipa qué productos se venderán más
-- 💰 **Alertas inteligentes**: "Estás a punto de quedarte sin tu producto estrella"
-- 📊 **Análisis de patrones**: Detecta tendencias que tú no ves
-- 🗣️ **Insights accionables**: Sugerencias claras y específicas
+4. **Portfolio Section**
+   - Slider horizontal de proyectos
+   - Auto-play cada 5 segundos
+   - Navegación con flechas y teclado
 
-### 💰 Smart Pricing - Precios Inteligentes
+5. **AI/Luumi Section**
+   - Avatar animado de IA con Canvas
+   - Simulación de chat interactivo
+   - Efectos de glow y partículas flotantes
 
-**La IA sugiere el precio perfecto para maximizar ganancias**
+6. **Blog Section**
+   - Sistema de filtros por categorías
+   - Tarjetas de artículos responsive
+   - Animaciones de entrada suaves
 
-```
-🐼 Análisis de "Café Americano":
-   
-   Tu precio actual: $25
-   Demanda: Alta y creciente
-   
-   💡 Sugerencia:
-   Precio sugerido: $28.75
-   Razón: Alta demanda y creciente. Los clientes valoran mucho este producto.
-   Impacto: +15% en margen sin perder clientes
-```
+7. **Footer**
+   - Enlaces organizados por secciones
+   - Redes sociales con hover effects
+   - Información legal y copyright
 
-### 🔮 Predictor Financiero
+### ⚡ Tecnologías Utilizadas
 
-**Ve el futuro de tu negocio**
+- **HTML5**: Estructura semántica y accesible
+- **CSS3**: Variables custom, Grid, Flexbox, animaciones avanzadas
+- **JavaScript ES6+**: Interactividad moderna y Canvas animations
+- **Canvas API**: Animaciones visuales de Luumi AI y Hero
+- **Intersection Observer**: Animaciones on-scroll optimizadas
+- **Google Fonts**: Inter y Orbitron
 
-```
-📅 PROYECCIÓN - Próximos 30 días:
+### 🎯 Características Técnicas
 
-┌────────────────────────────────────┐
-│  Si sigues así:                    │
-│  💰 Ventas estimadas: $37,500      │
-│  📊 Crecimiento: +8.5%             │
-│  ⚠️  Riesgo: Stock-out en 3 items  │
-│                                     │
-│  Si aplicas sugerencias de Panda:  │
-│  💰 Ventas estimadas: $52,500      │
-│  📊 Crecimiento: +48.5%            │
-│  🎯 Ganancia extra: $15,000        │
-└────────────────────────────────────┘
-```
+- ✅ **100% Responsive**: Mobile-first design
+- ✅ **SEO Optimizado**: Meta tags, estructura semántica, headings apropiados
+- ✅ **Accesibilidad**: ARIA labels, navegación por teclado
+- ✅ **Performance**: Debounced scroll events, lazy animations
+- ✅ **Cross-browser**: Compatible con todos los navegadores modernos
+- ✅ **Hosting Ready**: Configurado para Vercel deployment
 
-## ✨ Características Principales (Core)
+## 🛠️ Instalación y Uso
 
-### Gestión de Ventas
-- Registro completo de ventas con información del cliente
-- Seguimiento de productos vendidos
-- Cálculo automático de totales, descuentos e impuestos
-- Múltiples métodos de pago (efectivo, tarjeta, transferencia)
-- Cancelación de ventas con reposición automática de inventario
-
-### Control de Inventario
-- Gestión completa de productos con código único
-- Seguimiento de cantidades disponibles
-- Alertas de stock bajo + **predicción IA de agotamiento**
-- Categorización de productos
-- Búsqueda rápida por nombre, código o categoría
-
-### Tablero de Control
-- Vista general del negocio en tiempo real
-- Estadísticas de ventas por período
-- Productos más vendidos + **análisis predictivo**
-- Análisis por método de pago
-- Valor total del inventario
-- Reportes personalizables
-
-## 🚀 Inicio Rápido
-
-### Requisitos Previos
-- Node.js v24.13.0 o superior
-- MongoDB v6 o superior
-- npm (incluido con Node.js)
-
-### Instalación
+### Desarrollo Local
 
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/fatlop/iqpanda-core-system.git
-cd iqpanda-core-system
+# Opción 1: Usando Python
+python3 -m http.server 8000
 
-# 2. Instalar dependencias (backend + frontend)
-npm install
+# Opción 2: Usando Node.js
+npx serve .
 
-# 3. Configurar variables de entorno
-cp .env.example .env
-# Edita .env con tus valores
-
-# 4. Iniciar el proyecto completo
-npm run dev
+# Opción 3: Usando PHP
+php -S localhost:8000
 ```
 
-El servidor backend estará en `http://localhost:3000`  
-El frontend estará en `http://localhost:5173`
+Luego abre tu navegador en `http://localhost:8000`
 
-### Scripts Principales
+### Deployment en Vercel (Gratuito)
+
+1. **Instala Vercel CLI** (opcional):
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Deploy desde la línea de comandos**:
+   ```bash
+   vercel
+   ```
+
+3. **O conecta tu repositorio Git**:
+   - Sube el proyecto a GitHub
+   - Importa en [vercel.com](https://vercel.com)
+   - Deploy automático en cada push
+
+### Deployment en Netlify (Gratuito)
 
 ```bash
-npm run dev          # Desarrollo (backend + frontend)
-npm run build        # Build producción
-npm start            # Iniciar en producción
-npm test             # Correr tests
-npm run lint:all     # Verificar código
+# Instala Netlify CLI
+npm install -g netlify-cli
+
+# Deploy
+netlify deploy --prod
 ```
 
-📖 **Para más detalles**, consulta [DEVELOPMENT.md](DEVELOPMENT.md)
+## 📁 Estructura del Proyecto
 
-## 📚 Uso de la API
-
-### Endpoints Principales
-
-#### 🏠 General
-```
-GET  /              - Información del sistema
-GET  /health        - Estado del servidor
-```
-
-#### 📦 Inventario
-```
-GET    /api/inventario              - Listar todos los productos
-GET    /api/inventario/:id          - Obtener un producto
-GET    /api/inventario/stock-bajo   - Productos con stock bajo
-POST   /api/inventario              - Crear producto
-PUT    /api/inventario/:id          - Actualizar producto
-DELETE /api/inventario/:id          - Desactivar producto
-```
-
-#### 💰 Ventas
-```
-GET  /api/ventas              - Listar ventas
-GET  /api/ventas/:id          - Obtener una venta
-POST /api/ventas              - Registrar nueva venta
-PUT  /api/ventas/:id/cancelar - Cancelar venta
-```
-
-#### 📊 Tablero de Control
-```
-GET /api/tablero                - Dashboard general
-GET /api/tablero/reporte-ventas - Reporte de ventas por período
-```
-
-#### 🧠 Inteligencia Artificial (NUEVO)
-```
-GET /api/ia/panda           - Insights inteligentes de Panda AI
-GET /api/ia/precios         - Sugerencias de precios para todos los productos
-GET /api/ia/precios/:id     - Sugerencia de precio para un producto específico
-GET /api/ia/proyeccion?dias=30 - Proyección financiera a futuro
-```
-
-### Ejemplos de Uso
-
-#### Consultar Panda AI
-```bash
-curl http://localhost:3000/api/ia/panda
-```
-
-**Respuesta:**
-```json
-{
-  "exito": true,
-  "mensaje": "🐼 Panda AI ha analizado tu negocio",
-  "totalInsights": 4,
-  "insights": [
-    {
-      "tipo": "prediccion",
-      "titulo": "🔮 Predicción para hoy",
-      "mensaje": "Basándome en los últimos 30 días, hoy podrías vender aproximadamente $1,250.50",
-      "prioridad": "media"
-    },
-    {
-      "tipo": "alerta",
-      "titulo": "Stock crítico: Café Premium",
-      "mensaje": "¡Atención! Te quedarás sin 'Café Premium' en aproximadamente 2 días",
-      "prioridad": "alta",
-      "impactoEstimado": "Evitarás perder aproximadamente 21 ventas"
-    }
-  ]
-}
-```
-
-#### Obtener Smart Pricing
-```bash
-curl http://localhost:3000/api/ia/precios
-```
-
-**Respuesta:**
-```json
-{
-  "exito": true,
-  "mensaje": "💡 Smart Pricing ha analizado tus productos",
-  "totalSugerencias": 3,
-  "sugerencias": [
-    {
-      "nombreProducto": "Café Americano",
-      "precioActual": 25.00,
-      "precioSugerido": 28.75,
-      "razon": "Alta demanda y creciente",
-      "impactoEstimado": "+15% en margen sin perder clientes"
-    }
-  ]
-}
-```
-
-#### Ver Proyección Financiera
-```bash
-curl "http://localhost:3000/api/ia/proyeccion?dias=30"
-```
-
-#### Crear un Producto
-```bash
-curl -X POST http://localhost:3000/api/inventario \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nombre": "Café Premium",
-    "codigo": "CAF001",
-    "categoria": "Bebidas",
-    "precio": 15.99,
-    "cantidadDisponible": 50,
-    "cantidadMinima": 10,
-    "unidadMedida": "bolsa",
-    "descripcion": "Café de grano selecto"
-  }'
-```
-
-#### Registrar una Venta
-```bash
-curl -X POST http://localhost:3000/api/ventas \
-  -H "Content-Type: application/json" \
-  -d '{
-    "cliente": {
-      "nombre": "María González",
-      "telefono": "555-0123",
-      "email": "maria@email.com"
-    },
-    "items": [
-      {
-        "producto": "ID_DEL_PRODUCTO",
-        "cantidad": 2
-      }
-    ],
-    "metodoPago": "tarjeta",
-    "descuento": 0,
-    "impuestos": 3.20
-  }'
-```
-
-#### Ver Dashboard
-```bash
-curl http://localhost:3000/api/tablero?periodo=30
-```
-
-## 🏗️ Arquitectura
-
-El sistema está construido con:
-
-- **Backend**: Node.js + TypeScript + Express
-- **Base de Datos**: MongoDB con Mongoose
-- **Validación**: Joi
-- **Logging**: Winston
-- **Arquitectura**: MVC (Model-View-Controller)
-
-### Estructura del Proyecto
 ```
 iqpanda-core-system/
-├── src/
-│   ├── config/          # Configuración (DB, logger)
-│   ├── controllers/     # Lógica de negocio
-│   ├── models/          # Modelos de datos
-│   ├── routes/          # Definición de rutas
-│   └── index.ts         # Punto de entrada
-├── dist/                # Código compilado
-├── package.json         # Dependencias
-├── tsconfig.json        # Configuración TypeScript
-└── .env                 # Variables de entorno
+├── index.html          # Página principal
+├── index.css           # Sistema de diseño completo
+├── app.js              # Lógica e interactividad
+├── vercel.json         # Configuración de deployment
+├── README.md           # Documentación
+└── assets/
+    ├── images/
+    │   └── logo.png    # Logo de IQpanda
+    └── icons/          # Iconografía (futuro)
 ```
 
-## 🔒 Seguridad
+## 🎨 Personalización
 
-- Validación de datos en todas las entradas
-- Manejo seguro de errores
-- Logs detallados de operaciones
-- Sanitización de consultas MongoDB
+### Cambiar Colores
 
-## 🧪 Testing
+Edita las variables CSS en `index.css`:
 
-```bash
-npm test
+```css
+:root {
+  --color-primary: #0080FF;     /* Tu color primario */
+  --color-secondary: #8B3DFF;   /* Tu color secundario */
+  --color-accent: #00FF88;      /* Tu color de acento */
+}
 ```
 
-## 📝 Scripts Disponibles
+### Modificar Contenido
 
-```bash
-npm run dev      # Ejecutar en modo desarrollo
-npm run build    # Compilar TypeScript
-npm start        # Ejecutar en producción
-npm test         # Ejecutar tests
-npm run lint     # Verificar código
-npm run format   # Formatear código
+Todo el contenido está en `index.html` con estructura semántica clara:
+- Servicios: `.services-grid`
+- Proyectos: `.portfolio-track`
+- Blog: `.blog-grid`
+
+### Ajustar Animaciones
+
+Velocidad de animaciones en `index.css`:
+
+```css
+:root {
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
 ```
 
-## 🚀 Funcionalidades Revolucionarias Implementadas
+## 🔮 Siguientes Pasos (Roadmap)
 
-### ✅ Fase 1: Fundación con IA (COMPLETADO)
-- ✅ Core system funcional
-- ✅ 🧠 **Panda AI** - Asesor virtual inteligente
-- ✅ 💰 **Smart Pricing** - Precios inteligentes basados en IA
-- ✅ 🔮 **Predictor Financiero** - Proyecciones a 30+ días
-- ✅ 📊 Dashboard con insights en tiempo real
+### Backend Integration
+- [ ] Conectar con API de backend
+- [ ] Sistema de autenticación
+- [ ] Base de datos para blog y proyectos
 
-### 🔜 Fase 2: Magia (Próximamente)
-- [ ] 🎙️ Control por voz completo (VoiceCommerce)
-- [ ] 📸 VisionStock con IA - Inventario por cámara
-- [ ] 🤖 AutoPilot mode - Sistema autónomo
-- [ ] 📲 WhatsApp Business Integration
+### E-commerce
+- [ ] Catálogo de productos/servicios
+- [ ] Carrito de compras
+- [ ] Integración de pagos (Stripe/PayPal)
 
-### 🌟 Fase 3: Ecosistema (Futuro)
-- [ ] 🌐 Multi-sucursal inteligente
-- [ ] 🎮 Gamificación total
-- [ ] 🎓 IQpanda Academy
-- [ ] 🤝 Red IQpanda de negocios
+### IA Luumi Real
+- [ ] Integración con API de ChatGPT/Claude
+- [ ] Chat funcional en tiempo real
+- [ ] Procesamiento de lenguaje natural
 
-## 📖 Documentación Adicional
+### Automatización
+- [ ] WhatsApp Business API
+- [ ] Email marketing automation
+- [ ] CRM integration
 
-- **[PANDA_AI_DOCS.md](PANDA_AI_DOCS.md)**: Guía completa de funciones de IA
-- **[API_DOCUMENTATION.md](API_DOCUMENTATION.md)**: Documentación completa de API REST
-- **[EJEMPLOS.md](EJEMPLOS.md)**: Ejemplos prácticos de uso
-- **[CONTRIBUTING.md](CONTRIBUTING.md)**: Guía para contribuir al proyecto
+### Analytics
+- [ ] Google Analytics
+- [ ] Heatmaps (Hotjar)
+- [ ] Conversion tracking
 
-## 🎯 Por Qué IQpanda es Revolucionario
+## 🌐 Mockups de Diseño
 
-### Antes (Sistemas tradicionales):
-❌ Aprender a usar el sistema = 2 semanas
-❌ Formularios complicados
-❌ Reportes que no entiendes
-❌ Tú haces todo el trabajo
-❌ Software frío y robótico
+Los mockups visuales están disponibles en el directorio de artifacts.
 
-### Ahora (IQpanda Core con IA):
-✅ Listo para usar en 3 minutos
-✅ IA que te asesora 24/7
-✅ Insights que SÍ entiendes
-✅ La IA trabaja para ti
-✅ Predicciones precisas
-✅ El sistema piensa contigo
+## 📊 Performance
 
-## 🌟 Diseño Centrado en el Usuario
+- ⚡ First Contentful Paint: < 1.5s
+- ⚡ Time to Interactive: < 3s
+- ⚡ Lighthouse Score: 90+
 
-Este sistema está diseñado para personas reales que manejan negocios reales:
+## 🤝 Contribuir
 
-- ✅ **Lenguaje claro**: Sin jerga técnica complicada
-- ✅ **Mensajes amigables**: Respuestas comprensibles en español
-- ✅ **Procesos simples**: Flujos de trabajo intuitivos
-- ✅ **Visual y organizado**: Datos presentados de forma clara
-- ✅ **Adaptable**: Fácil de personalizar y extender
-
-## 🚀 Futuras Mejoras
-
-- [ ] Autenticación y autorización de usuarios
-- [ ] Reportes avanzados con gráficos
-- [ ] Notificaciones automáticas
-- [ ] API REST completa con documentación Swagger
-- [ ] Exportación de datos (Excel, PDF)
-- [ ] Integración con sistemas de pago
-- [ ] Módulo de clientes y proveedores
-- [ ] Dashboard web con interfaz visual
-- [ ] Aplicación móvil
-
-## 👥 Contribuir
-
-Las contribuciones son bienvenidas. Por favor:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+Este es un proyecto en evolución. Para contribuir:
+1. Fork el repositorio
+2. Crea una rama feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add AmazingFeature'`)
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT.
+Copyright © 2026 IQpanda Tecnovador. Todos los derechos reservados.
 
-## 📞 Contacto
+## 📧 Contacto
 
-IQpanda Tecnovador - Sistema desarrollado con ❤️ para pequeñas y medianas empresas
+- **Website**: [En construcción]
+- **Email**: contacto@iqpanda.com
+- **LinkedIn**: [IQpanda Tecnovador]
+- **Instagram**: [@iqpanda_tech]
 
 ---
 
-**¡Hecho para ayudarte a tomar mejores decisiones en tu negocio!** 🐼
+**IQpanda Tecnovador** - *Innovación que transforma* 🐼✨
