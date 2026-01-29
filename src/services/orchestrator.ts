@@ -15,12 +15,13 @@ export class Orchestrator {
     this.supabase = createClient(supabaseUrl, supabaseKey);
   }
 
-  async getContext(userId: string, _request: OrchestratorRequest): Promise<OrchestratorResponse> {
-    // Consultar SOLO snapshots agregados (NO logs crudos)
+  async getContext(userId: string, _request: OrchestratorRequest): Promise<OrchestratorResponse> { // eslint-disable-line @typescript-eslint/no-unused-vars
+    // Consultar SOLO snapshots con perfil YA CALCULADO
     const { data: snapshots, error } = await this.supabase
       .from('user_activity_snapshots')
-      .select('*')
-      .eq('user_id', userId);
+      .select('profile_classification, confidence, demo, interactions_30d, last_activity')
+      .eq('user_id', userId)
+      .not('profile_classification', 'is', null);
 
     if (error) {
       throw new Error(`Error fetching user snapshots: ${error.message}`);
@@ -37,80 +38,18 @@ export class Orchestrator {
       };
     }
 
-    // Clasificación basada en reglas (NO IA libre por ahora)
-    const profile = this.classifyUser(snapshots);
-    const confidence = this.calculateConfidence(snapshots);
+    // Todos los snapshots del mismo usuario tienen el mismo profile_classification
+    // (se calcula una vez por usuario en la función SQL)
+    const primarySnapshot = snapshots[0];
 
     return {
-      user_profile: profile,
-      confidence,
+      user_profile: primarySnapshot.profile_classification as UserProfile,
+      confidence: primarySnapshot.confidence || 0.3,
       metadata: {
         snapshots_count: snapshots.length,
         most_active_demo: this.getMostActiveDemo(snapshots)
       }
     };
-  }
-
-  private classifyUser(snapshots: any[]): UserProfile {
-    const techDemos = ['diagnostico_mecanico', 'analisis_electrico', 'auditoria_red'];
-    const businessDemos = ['crm_inteligente', 'catalogos_digitales'];
-    const creativeDemos = ['generador_branding', 'guiones_video'];
-
-    const techInteractions = snapshots
-      .filter(s => techDemos.includes(s.demo))
-      .reduce((sum, s) => sum + s.interactions_30d, 0);
-
-    const businessInteractions = snapshots
-      .filter(s => businessDemos.includes(s.demo))
-      .reduce((sum, s) => sum + s.interactions_30d, 0);
-
-    const creativeInteractions = snapshots
-      .filter(s => creativeDemos.includes(s.demo))
-      .reduce((sum, s) => sum + s.interactions_30d, 0);
-
-    const totalInteractions = techInteractions + businessInteractions + creativeInteractions;
-
-    // Reglas de clasificación (enumeradas, NO improvisadas)
-    if (techInteractions > 10 && techInteractions > businessInteractions * 2) {
-      return 'tecnico_activo';
-    }
-    
-    if (businessInteractions > 5 && totalInteractions > 15) {
-      return 'negocio_en_validacion';
-    }
-
-    if (creativeInteractions > 8) {
-      return 'creativo_recurrente';
-    }
-
-    if (totalInteractions > 20 && businessInteractions > 10) {
-      return 'cliente_listo_para_conversion';
-    }
-
-    if (snapshots.length >= 3 && totalInteractions > 5) {
-      return 'usuario_explorador';
-    }
-
-    return 'usuario_explorador';
-  }
-
-  private calculateConfidence(snapshots: any[]): number {
-    const totalInteractions = snapshots.reduce((sum, s) => sum + s.interactions_30d, 0);
-    const daysWithActivity = snapshots.filter(s => s.last_activity).length;
-
-    // Confianza basada en volumen y consistencia
-    let confidence = 0.3; // baseline
-
-    if (totalInteractions > 20) confidence += 0.3;
-    else if (totalInteractions > 10) confidence += 0.2;
-    else if (totalInteractions > 5) confidence += 0.1;
-
-    if (daysWithActivity > 5) confidence += 0.2;
-    else if (daysWithActivity > 3) confidence += 0.1;
-
-    if (snapshots.length > 3) confidence += 0.1;
-
-    return Math.min(confidence, 1.0);
   }
 
   private getMostActiveDemo(snapshots: any[]): string {

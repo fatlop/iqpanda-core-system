@@ -191,8 +191,14 @@ El sistema ejecuta automáticamente cada día a las 2 AM:
 Para ejecutar manualmente (testing):
 ```bash
 # Invocar Edge Function directamente
-curl -X POST https://your-project.supabase.co/functions/v1/aggregate-logs \
-  -H "Authorization: Bearer YOUR_ANON_KEY"
+curl -X POST $SUPABASE_URL/functions/v1/aggregate-logs \
+  -H "Authorization: Bearer $SUPABASE_ANON_KEY"
+```
+
+**Nota:** Asegúrate de tener estas variables en tu entorno:
+```bash
+export SUPABASE_URL="https://your-project.supabase.co"
+export SUPABASE_ANON_KEY="your-anon-key"
 ```
 
 ---

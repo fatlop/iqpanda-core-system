@@ -32,9 +32,11 @@ describe('Orchestrator Service', () => {
       const mockSupabase = orchestrator['supabase'];
       mockSupabase.from = jest.fn().mockReturnValue({
         select: jest.fn().mockReturnValue({
-          eq: jest.fn().mockResolvedValue({
-            data: [],
-            error: null
+          eq: jest.fn().mockReturnValue({
+            not: jest.fn().mockResolvedValue({
+              data: [],
+              error: null
+            })
           })
         })
       });
@@ -54,21 +56,27 @@ describe('Orchestrator Service', () => {
         {
           demo: 'diagnostico_mecanico',
           interactions_30d: 15,
-          last_activity: new Date().toISOString()
+          last_activity: new Date().toISOString(),
+          profile_classification: 'tecnico_activo',
+          confidence: 0.7
         },
         {
           demo: 'analisis_electrico',
           interactions_30d: 8,
-          last_activity: new Date().toISOString()
+          last_activity: new Date().toISOString(),
+          profile_classification: 'tecnico_activo',
+          confidence: 0.7
         }
       ];
 
       const mockSupabase = orchestrator['supabase'];
       mockSupabase.from = jest.fn().mockReturnValue({
         select: jest.fn().mockReturnValue({
-          eq: jest.fn().mockResolvedValue({
-            data: mockSnapshots,
-            error: null
+          eq: jest.fn().mockReturnValue({
+            not: jest.fn().mockResolvedValue({
+              data: mockSnapshots,
+              error: null
+            })
           })
         })
       });
@@ -79,7 +87,7 @@ describe('Orchestrator Service', () => {
       });
 
       expect(result.user_profile).toBe('tecnico_activo');
-      expect(result.confidence).toBeGreaterThan(0.5);
+      expect(result.confidence).toBe(0.7);
       expect(result.metadata?.most_active_demo).toBe('diagnostico_mecanico');
     });
 
@@ -87,9 +95,11 @@ describe('Orchestrator Service', () => {
       const mockSupabase = orchestrator['supabase'];
       mockSupabase.from = jest.fn().mockReturnValue({
         select: jest.fn().mockReturnValue({
-          eq: jest.fn().mockResolvedValue({
-            data: null,
-            error: { message: 'Database error' }
+          eq: jest.fn().mockReturnValue({
+            not: jest.fn().mockResolvedValue({
+              data: null,
+              error: { message: 'Database error' }
+            })
           })
         })
       });
@@ -104,12 +114,14 @@ describe('Orchestrator Service', () => {
   });
 
   describe('Confidence Calculation', () => {
-    it('should increase confidence with more interactions', async () => {
+    it('should read confidence from database snapshots', async () => {
       const mockSnapshotsLow = [
         {
           demo: 'test_demo',
           interactions_30d: 3,
-          last_activity: new Date().toISOString()
+          last_activity: new Date().toISOString(),
+          profile_classification: 'usuario_explorador',
+          confidence: 0.4
         }
       ];
 
@@ -117,12 +129,16 @@ describe('Orchestrator Service', () => {
         {
           demo: 'test_demo',
           interactions_30d: 25,
-          last_activity: new Date().toISOString()
+          last_activity: new Date().toISOString(),
+          profile_classification: 'tecnico_activo',
+          confidence: 0.8
         },
         {
           demo: 'another_demo',
           interactions_30d: 15,
-          last_activity: new Date().toISOString()
+          last_activity: new Date().toISOString(),
+          profile_classification: 'tecnico_activo',
+          confidence: 0.8
         }
       ];
 
@@ -131,9 +147,11 @@ describe('Orchestrator Service', () => {
       // First call with low interactions
       mockSupabase.from = jest.fn().mockReturnValue({
         select: jest.fn().mockReturnValue({
-          eq: jest.fn().mockResolvedValue({
-            data: mockSnapshotsLow,
-            error: null
+          eq: jest.fn().mockReturnValue({
+            not: jest.fn().mockResolvedValue({
+              data: mockSnapshotsLow,
+              error: null
+            })
           })
         })
       });
@@ -146,9 +164,11 @@ describe('Orchestrator Service', () => {
       // Second call with high interactions
       mockSupabase.from = jest.fn().mockReturnValue({
         select: jest.fn().mockReturnValue({
-          eq: jest.fn().mockResolvedValue({
-            data: mockSnapshotsHigh,
-            error: null
+          eq: jest.fn().mockReturnValue({
+            not: jest.fn().mockResolvedValue({
+              data: mockSnapshotsHigh,
+              error: null
+            })
           })
         })
       });
