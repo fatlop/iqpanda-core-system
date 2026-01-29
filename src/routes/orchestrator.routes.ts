@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { Orchestrator } from '../services/orchestrator';
-import { OrchestatorRequest } from '../types/orchestrator.types';
+import { OrchestratorRequest } from '../types/orchestrator.types';
 
 const router = Router();
 const orchestrator = new Orchestrator();
@@ -20,7 +20,16 @@ router.post('/context', async (req: Request, res: Response) => {
       });
     }
 
-    const request: OrchestatorRequest = { requesting_demo, need };
+    // Validate 'need' parameter
+    const validNeeds = ['contexto_tecnico_usuario', 'perfil_comercial', 'patron_uso'];
+    if (!validNeeds.includes(need)) {
+      return res.status(400).json({
+        exito: false,
+        mensaje: `Valor inválido para 'need'. Valores válidos: ${validNeeds.join(', ')}`
+      });
+    }
+
+    const request: OrchestratorRequest = { requesting_demo, need };
     const context = await orchestrator.getContext(user_id, request);
 
     res.json({

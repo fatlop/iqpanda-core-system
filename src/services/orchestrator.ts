@@ -1,5 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { OrchestatorRequest, OrchestatorResponse, UserProfile } from '../types/orchestrator.types';
+import { OrchestratorRequest, OrchestratorResponse, UserProfile } from '../types/orchestrator.types';
 
 export class Orchestrator {
   private supabase: SupabaseClient;
@@ -15,7 +15,7 @@ export class Orchestrator {
     this.supabase = createClient(supabaseUrl, supabaseKey);
   }
 
-  async getContext(userId: string, _request: OrchestatorRequest): Promise<OrchestatorResponse> {
+  async getContext(userId: string, _request: OrchestratorRequest): Promise<OrchestratorResponse> {
     // Consultar SOLO snapshots agregados (NO logs crudos)
     const { data: snapshots, error } = await this.supabase
       .from('user_activity_snapshots')

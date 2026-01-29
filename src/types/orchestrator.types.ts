@@ -5,12 +5,12 @@ export type UserProfile =
   | 'cliente_listo_para_conversion'
   | 'creativo_recurrente';
 
-export interface OrchestatorRequest {
+export interface OrchestratorRequest {
   requesting_demo: string;
   need: 'contexto_tecnico_usuario' | 'perfil_comercial' | 'patron_uso';
 }
 
-export interface OrchestatorResponse {
+export interface OrchestratorResponse {
   user_profile: UserProfile;
   confidence: number;
   metadata?: {
