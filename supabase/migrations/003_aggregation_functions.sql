@@ -26,13 +26,14 @@ BEGIN
 END;
 $$;
 
--- Función para crear snapshots de usuarios
+-- Función para crear snapshots de usuarios CON CLASIFICACIÓN
 CREATE OR REPLACE FUNCTION create_user_snapshots()
 RETURNS void
 LANGUAGE plpgsql
 SECURITY DEFINER
 AS $$
 BEGIN
+  -- Paso 1: Actualizar snapshots básicos (conteos de interacciones)
   INSERT INTO user_activity_snapshots (user_id, demo, last_activity, interactions_30d, updated_at)
   SELECT
     user_id,
@@ -48,5 +49,84 @@ BEGIN
     last_activity = EXCLUDED.last_activity,
     interactions_30d = EXCLUDED.interactions_30d,
     updated_at = EXCLUDED.updated_at;
+
+  -- Paso 2: Calcular clasificación de perfiles por usuario
+  WITH user_aggregates AS (
+    SELECT 
+      user_id,
+      
+      -- Interacciones por tipo de demo
+      COALESCE(SUM(interactions_30d) FILTER (
+        WHERE demo IN ('diagnostico_mecanico', 'analisis_electrico', 'auditoria_red')
+      ), 0) AS tech_interactions,
+      
+      COALESCE(SUM(interactions_30d) FILTER (
+        WHERE demo IN ('crm_inteligente', 'catalogos_digitales')
+      ), 0) AS business_interactions,
+      
+      COALESCE(SUM(interactions_30d) FILTER (
+        WHERE demo IN ('generador_branding', 'guiones_video')
+      ), 0) AS creative_interactions,
+      
+      SUM(interactions_30d) AS total_interactions,
+      COUNT(DISTINCT demo) AS demos_count
+      
+    FROM user_activity_snapshots
+    GROUP BY user_id
+  ),
+  user_classifications AS (
+    SELECT
+      user_id,
+      
+      -- Clasificación de perfil (mismas reglas que TypeScript)
+      CASE
+        WHEN tech_interactions > 10 AND tech_interactions > business_interactions * 2 
+          THEN 'tecnico_activo'
+        
+        WHEN business_interactions > 5 AND total_interactions > 15 
+          THEN 'negocio_en_validacion'
+        
+        WHEN creative_interactions > 8 
+          THEN 'creativo_recurrente'
+        
+        WHEN total_interactions > 20 AND business_interactions > 10 
+          THEN 'cliente_listo_para_conversion'
+        
+        WHEN demos_count >= 3 AND total_interactions > 5 
+          THEN 'usuario_explorador'
+        
+        ELSE 'usuario_explorador'
+      END AS profile,
+      
+      -- Cálculo de confianza
+      LEAST(1.0, 
+        0.3 + -- baseline
+        CASE 
+          WHEN total_interactions > 20 THEN 0.3
+          WHEN total_interactions > 10 THEN 0.2
+          WHEN total_interactions > 5 THEN 0.1
+          ELSE 0 
+        END +
+        CASE 
+          WHEN demos_count > 5 THEN 0.2
+          WHEN demos_count > 3 THEN 0.1
+          ELSE 0 
+        END +
+        CASE 
+          WHEN demos_count > 3 THEN 0.1
+          ELSE 0 
+        END
+      ) AS confidence_score
+      
+    FROM user_aggregates
+  )
+  UPDATE user_activity_snapshots AS uas
+  SET 
+    profile_classification = uc.profile,
+    confidence = uc.confidence_score
+  FROM user_classifications AS uc
+  WHERE uas.user_id = uc.user_id;
 END;
 $$;
+
+COMMENT ON FUNCTION create_user_snapshots() IS 'Agrega snapshots de actividad Y calcula clasificación de perfiles con confianza';
