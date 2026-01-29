@@ -28,9 +28,11 @@ export class Orchestrator {
     }
 
     if (!snapshots || snapshots.length === 0) {
+      // No snapshots with profile_classification found
+      // This can happen if user has no activity or aggregation hasn't run yet
       return {
         user_profile: 'usuario_explorador',
-        confidence: 0.3,
+        confidence: 0.3, // Baseline confidence matching SQL calculation
         metadata: {
           reason: 'No activity data available',
           snapshots_count: 0
@@ -44,7 +46,7 @@ export class Orchestrator {
 
     return {
       user_profile: primarySnapshot.profile_classification as UserProfile,
-      confidence: primarySnapshot.confidence || 0.3,
+      confidence: primarySnapshot.confidence || 0.3, // Fallback to baseline if null
       metadata: {
         snapshots_count: snapshots.length,
         most_active_demo: this.getMostActiveDemo(snapshots)
@@ -52,7 +54,7 @@ export class Orchestrator {
     };
   }
 
-  private getMostActiveDemo(snapshots: any[]): string {
+  private getMostActiveDemo(snapshots: Array<{ demo: string; interactions_30d: number }>): string {
     if (snapshots.length === 0) return 'none';
     
     return snapshots.reduce((max, current) => 
