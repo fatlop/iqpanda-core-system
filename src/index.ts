@@ -8,6 +8,7 @@ import salesRoutes from './routes/sales.routes';
 import inventoryRoutes from './routes/inventory.routes';
 import dashboardRoutes from './routes/dashboard.routes';
 import aiRoutes from './routes/ai.routes';
+import orchestratorRoutes from './routes/orchestrator.routes';
 
 dotenv.config();
 
@@ -65,6 +66,7 @@ app.use('/api/ventas', salesRoutes);
 app.use('/api/inventario', inventoryRoutes);
 app.use('/api/tablero', dashboardRoutes);
 app.use('/api/ia', aiRoutes);
+app.use('/api/orchestrator', orchestratorRoutes);
 
 // Error handling
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

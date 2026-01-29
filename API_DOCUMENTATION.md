@@ -401,6 +401,95 @@ curl "http://localhost:3000/api/tablero/reporte-ventas?fechaInicio=2024-01-01&fe
 5. **Inventario**: Las ventas actualizan el stock automáticamente
 6. **Cancelaciones**: Cancelar una venta restaura el inventario
 
+---
+
+## 🧠 Orquestador (Observabilidad)
+
+### POST /api/orchestrator/context
+Obtener contexto de usuario y perfil de comportamiento basado en actividad histórica.
+
+**Cuerpo de la petición:**
+```json
+{
+  "user_id": "uuid-del-usuario",
+  "requesting_demo": "nombre_del_demo",
+  "need": "contexto_tecnico_usuario"
+}
+```
+
+**Parámetros:**
+- `user_id` (requerido): UUID del usuario
+- `requesting_demo` (requerido): Nombre del demo que solicita el contexto
+- `need` (requerido): Tipo de contexto necesario
+  - `contexto_tecnico_usuario`: Perfil técnico del usuario
+  - `perfil_comercial`: Perfil comercial/negocio
+  - `patron_uso`: Patrones de uso
+
+**Respuesta exitosa:**
+```json
+{
+  "exito": true,
+  "mensaje": "Contexto obtenido exitosamente",
+  "context": {
+    "user_profile": "tecnico_activo",
+    "confidence": 0.85,
+    "metadata": {
+      "snapshots_count": 4,
+      "most_active_demo": "diagnostico_mecanico"
+    }
+  }
+}
+```
+
+**Perfiles posibles:**
+- `tecnico_activo`: Usuario con alta actividad en demos técnicos
+- `usuario_explorador`: Usuario probando diferentes demos
+- `negocio_en_validacion`: Usuario enfocado en herramientas de negocio
+- `cliente_listo_para_conversion`: Usuario con alta actividad constante
+- `creativo_recurrente`: Usuario enfocado en demos creativos
+
+**Ejemplo de uso:**
+```bash
+curl -X POST http://localhost:3000/api/orchestrator/context \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "123e4567-e89b-12d3-a456-426614174000",
+    "requesting_demo": "crm_inteligente",
+    "need": "perfil_comercial"
+  }'
+```
+
+### GET /api/orchestrator/profiles
+Listar todos los perfiles disponibles y sus criterios de clasificación.
+
+**Respuesta:**
+```json
+{
+  "exito": true,
+  "perfiles": [
+    {
+      "id": "tecnico_activo",
+      "descripcion": "Usuario con alta actividad en demos técnicos",
+      "criterios": "Más de 10 interacciones en demos técnicos en 30 días"
+    },
+    {
+      "id": "usuario_explorador",
+      "descripcion": "Usuario probando diferentes demos",
+      "criterios": "3+ demos diferentes, 5+ interacciones totales"
+    }
+  ]
+}
+```
+
+**Ejemplo de uso:**
+```bash
+curl http://localhost:3000/api/orchestrator/profiles
+```
+
+**Nota**: Para más información sobre el sistema de observabilidad y orquestador, consulta `ORCHESTRATOR_GUIDE.md`.
+
+---
+
 ## 🛡️ Manejo de Errores
 
 Todos los errores incluyen:
